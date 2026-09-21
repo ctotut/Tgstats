@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Статистика каналов · Cto_tut.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- Telegram Mini App SDK. Harmless when the page is opened as a normal
+     website — window.Telegram simply won't exist and every call below is
+     guarded for that. -->
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+  :root{
+    --bg: #07080a;
+    --bg-soft: #0b0c0f;
+    --card: #111217;
+    --card-hover: #15161d;
+    --border: #1f212a;
+    --border-soft: #1a1b22;
+    --green: #4ade80;
+    --green-bright: #7dffa0;
+    --green-dim: #1c3324;
+    --red: #f97373;
+    --red-dim: #2d1414;
+    --yellow: #fbbf24;
+    --yellow-dim: #2d2410;
+    --text: #f3f4f6;
+    --text-muted: #8b8d99;
+    --text-faint: #5a5c68;
+    --radius: 16px;
+    --bg-glow-1: rgba(74,222,128,0.06);
+    --bg-glow-2: rgba(74,222,128,0.04);
+  }
+  html[data-theme="light"]{
+    --bg: #f4f5f7;
+    --bg-soft: #ffffff;
+    --card: #ffffff;
+    --card-hover: #f4f6f8;
+    --border: #e1e3e9;
+    --border-soft: #ebedf1;
+    --green: #16a34a;
+    --green-bright: #0f7f3a;
+    --green-dim: #dcfce7;
+    --red: #dc2626;
+    --red-dim: #fde2e2;
+    --yellow: #b45309;
+    --yellow-dim: #fef3c7;
+    --text: #14161a;
+    --text-muted: #5c5f68;
+    --text-faint: #8a8d97;
+    --bg-glow-1: rgba(22,163,74,0.07);
+    --bg-glow-2: rgba(22,163,74,0.05);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{ scroll-behavior:smooth; }
+  body{
+    background: var(--bg);
+    background-image:
+      radial-gradient(circle at 15% 0%, var(--bg-glow-1), transparent 40%),
+      radial-gradient(circle at 85% 10%, var(--bg-glow-2), transparent 35%);
+    background-attachment: fixed;
+    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    min-height: var(--tg-viewport-height, 100vh);
+    -webkit-font-smoothing: antialiased;
+    transition: background-color .25s ease, color .25s ease;
+  }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+  .wrap{ max-width: 980px; margin: 0 auto; padding: 28px 20px 40px; }
+
+  /* ---------- Hero ---------- */
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    border:1px solid rgba(74,222,128,0.35);
+    background: var(--green-dim);
+    color: var(--green-bright);
+    font-size: 11px; font-weight:700; letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: 6px 12px; border-radius: 999px;
+  }
+  .dot{
+    width:7px; height:7px; border-radius:50%;
+    background: var(--green); box-shadow: 0 0 0 0 rgba(74,222,128,0.6);
+    animation: pulse 1.8s infinite;
+  }
+  @keyframes pulse{
+    0%{ box-shadow: 0 0 0 0 rgba(74,222,128,0.55); }
+    70%{ box-shadow: 0 0 0 7px rgba(74,222,128,0); }
+    100%{ box-shadow: 0 0 0 0 rgba(74,222,128,0); }
+  }
+  h1{
+    font-size: clamp(26px, 5vw, 42px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin: 18px 0 0;
+    line-height: 1.1;
+  }
+  h1 .accent{ color: var(--green); }
+
+  .hero-row{
+    display:flex; flex-wrap:wrap; gap:14px;
+    align-items:flex-end; justify-content:space-between;
+    margin-top: 26px;
+  }
+  .hero-stats{ display:flex; gap: 28px; flex-wrap: wrap; }
+  .stat-value{ font-size: 30px; font-weight:800; font-family:'JetBrains Mono',monospace; letter-spacing:-0.01em; }
+  .stat-label{ font-size: 11.5px; color: var(--text-muted); text-transform:uppercase; letter-spacing:.07em; margin-top:2px; }
+
+  .hero-actions{ display:flex; gap:10px; }
+
+  .refresh-btn{
+    background: var(--green);
+    color: #06140a;
+    border:none; cursor:pointer;
+    font-weight:700; font-size: 14px;
+    padding: 12px 18px; border-radius: 12px;
+    display:inline-flex; align-items:center; gap:8px;
+    transition: transform .15s ease, opacity .15s ease;
+    white-space:nowrap;
+  }
+  .refresh-btn:hover{ opacity:.9; }
+  .refresh-btn:active{ transform: scale(.97); }
+  .refresh-btn.loading .spin{ animation: spin 0.9s linear infinite; }
+  .spin{ display:inline-block; }
+  @keyframes spin{ to{ transform: rotate(360deg); } }
+
+  .theme-toggle{
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    color: var(--text);
+    width: 46px; height: 46px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 18px;
+    display:flex; align-items:center; justify-content:center;
+    transition: border-color .15s ease, transform .15s ease, background .15s ease;
+    flex-shrink:0;
+  }
+  .theme-toggle:hover{ border-color: var(--green); }
+  .theme-toggle:active{ transform: scale(.94); }
+
+  /* ---------- Groups ---------- */
+  .group{ margin-top: 44px; }
+  .group-head{
+    display:flex; align-items:center; gap:8px;
+    border-left: 3px solid var(--green);
+    padding-left: 12px; margin-bottom: 16px;
+  }
+  .group-head h2{ font-size: 18px; font-weight:700; }
+  .verified-badge{ flex-shrink:0; display:block; }
+
+  /* ---------- Carousel ---------- */
+  .carousel-wrap{ position:relative; }
+  .carousel{ position:relative; }
+  .carousel-track{
+    display:flex; gap:14px;
+    overflow-x:auto;
+    scroll-snap-type: x mandatory;
+    padding: 4px 40px 10px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .carousel-track::-webkit-scrollbar{ display:none; }
+  .carousel-track > .card{
+    flex: 0 0 min(300px, 84%);
+    scroll-snap-align: center;
+    transition: opacity .3s ease, transform .3s ease;
+  }
+  .car-nav{
+    position:absolute; top:50%; transform:translateY(-50%);
+    width:34px; height:34px; border-radius:50%;
+    background: var(--card); border:1px solid var(--border); color: var(--text);
+    cursor:pointer; display:flex; align-items:center; justify-content:center;
+    font-size:17px; z-index:2; line-height:1;
+    transition: border-color .15s ease, color .15s ease, opacity .15s ease;
+  }
+  .car-nav:hover{ border-color: var(--green); color: var(--green); }
+  .car-nav.prev{ left:0; }
+  .car-nav.next{ right:0; }
+  .car-nav:disabled{ opacity:.35; cursor:default; }
+  .car-nav:disabled:hover{ border-color: var(--border); color: var(--text); }
+
+  .carousel-dots{ display:flex; justify-content:center; gap:6px; margin-top:4px; }
+  .car-dot{
+    width:6px; height:6px; border-radius:50%;
+    background: var(--border); border:none; cursor:pointer; padding:0;
+    transition: width .25s ease, background .25s ease;
+  }
+  .car-dot.active{ background: var(--green); width:18px; border-radius:4px; }
+
+  .carousel-wrap.single .car-nav,
+  .carousel-wrap.single .carousel-dots{ display:none; }
+  .carousel-wrap.single .carousel-track{ padding: 4px 4px 4px; justify-content:center; }
+  .carousel-wrap.single .carousel-track > .card{ flex: 0 0 min(320px, 100%); }
+
+  /* When all cards of a group fit in one row (enough width, e.g. desktop or
+     a zoomed-out view) — drop the carousel/peek behaviour entirely and just
+     lay them out in a normal row, all visible and all interactive. */
+  .carousel-wrap.row-mode .car-nav,
+  .carousel-wrap.row-mode .carousel-dots{ display:none; }
+  .carousel-wrap.row-mode .carousel-track{
+    overflow: visible;
+    scroll-snap-type: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 4px;
+  }
+  .carousel-wrap.row-mode .carousel-track > .card{
+    flex: 0 0 290px;
+  }
+
+  @media (max-width: 480px){
+    .car-nav{ display:none; }
+    .carousel-track{ padding: 4px 8px 10px; }
+  }
+
+  /* ---------- Flip card ---------- */
+  .card.flip-card{
+    perspective: 1400px;
+    height: 348px;
+  }
+  .flip-inner{
+    position:relative;
+    width:100%; height:100%;
+    transition: transform .6s cubic-bezier(.4,0,.2,1);
+    transform-style: preserve-3d;
+  }
+  .flip-inner.flipped{ transform: rotateY(180deg); }
+
+  .flip-front, .flip-back{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    display:flex; flex-direction:column;
+    transition: border-color .2s ease, background .2s ease;
+  }
+  .flip-card:not(.inactive) .flip-front:hover,
+  .flip-card:not(.inactive) .flip-back:hover{
+    border-color: rgba(74,222,128,0.35);
+    background: var(--card-hover);
+  }
+  .flip-back{ transform: rotateY(180deg); overflow-y:auto; }
+
+  /* Peek styling lives on the .card itself (not on the flip faces), so it
+     never fights with the flip-inner's own rotateY transform. */
+  .carousel-track > .card.inactive{
+    opacity:.42;
+    transform: scale(.94);
+    pointer-events:none;
+  }
+  .carousel-wrap.single .card,
+  .carousel-wrap.row-mode .card{ opacity:1 !important; transform:none !important; pointer-events:auto !important; }
+
+  .card-main{ padding: 18px 18px 14px; display:flex; flex-direction:column; gap: 14px; flex:1; }
+
+  .card-top{ display:flex; align-items:center; gap:12px; }
+  .avatar{
+    width: 44px; height:44px; border-radius: 12px;
+    background: var(--green-dim); color: var(--green-bright);
+    display:flex; align-items:center; justify-content:center;
+    font-weight:800; font-size:16px; flex-shrink:0;
+    object-fit: cover; border: 1px solid var(--border-soft);
+  }
+  .card-id{ min-width:0; flex:1; }
+  .card-id h3{ font-size: 14.5px; font-weight:700; line-height:1.25;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .card-id a{ color: var(--text-faint); font-size:12px; text-decoration:none; }
+  .card-id a:hover{ color: var(--green); }
+
+  .card-stats{ display:flex; gap: 10px; }
+  .metric{
+    flex:1; min-width:0; background: var(--bg-soft); border:1px solid var(--border-soft);
+    border-radius: 10px; padding: 10px 12px;
+  }
+  .metric-value{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size: 17px; color: var(--green-bright);
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .metric-value.muted{ color: var(--text-muted); font-size:13px; font-weight:600; }
+  .metric-label{ font-size: 10.5px; color: var(--text-faint); text-transform:uppercase; letter-spacing:.06em; margin-top:3px; }
+
+  .card-footer{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
+  .status{ font-size: 12px; color: var(--text-faint); }
+  .status.err{ color: var(--red); }
+  .open-link{
+    font-size:12.5px; font-weight:600; color: var(--green);
+    text-decoration:none; display:inline-flex; align-items:center; gap:4px;
+    flex-shrink:0;
+  }
+  .open-link:hover{ color: var(--green-bright); }
+  .retry{
+    background:none; border:1px solid var(--border); color: var(--text-muted);
+    font-size:11px; padding:3px 8px; border-radius:7px; cursor:pointer;
+  }
+  .retry:hover{ border-color: var(--green); color: var(--green); }
+
+  .flip-btn{
+    width: 100%;
+    background: var(--bg-soft);
+    border: none;
+    border-top: 1px solid var(--border-soft);
+    border-radius: 0 0 var(--radius) var(--radius);
+    color: var(--text-faint);
+    font-size: 12px;
+    font-family: inherit;
+    font-weight: 600;
+    padding: 11px 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    transition: color .15s, background .15s;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+  .flip-btn:hover{ color: var(--green); background: rgba(74,222,128,0.06); }
+  .flip-icon{ font-size: 13px; }
+
+  .flip-back-head{
+    display:flex; align-items:center; justify-content:space-between; gap:8px;
+    padding: 14px 16px 0;
+  }
+  .back-btn{
+    background:none; border:1px solid var(--border); color: var(--text-muted);
+    font-size:11.5px; font-weight:600; padding:5px 10px; border-radius:8px; cursor:pointer;
+    font-family:inherit;
+  }
+  .back-btn:hover{ border-color: var(--green); color: var(--green); }
+  .flip-back-title{ font-size:12px; color: var(--text-faint); font-family:'JetBrains Mono',monospace; }
+
+  .flip-back-body{ padding: 12px 16px 16px; display:flex; flex-direction:column; gap:12px; flex:1; }
+
+  /* Period tabs */
+  .period-tabs{ display:flex; gap:6px; }
+  .period-tab{
+    flex:1; background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-faint);
+    font-size: 11px; font-weight: 700;
+    padding: 6px 4px;
+    cursor: pointer;
+    text-align: center;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    transition: all .15s;
+    font-family:inherit;
+  }
+  .period-tab:hover{ border-color: var(--green); color: var(--green); }
+  .period-tab.active{
+    background: var(--green-dim);
+    border-color: var(--green);
+    color: var(--green-bright);
+  }
+
+  /* Period content */
+  .period-content{ display:none; }
+  .period-content.active{ display:block; }
+
+  .period-stats{ display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .p-stat{
+    background: var(--bg);
+    border: 1px solid var(--border-soft);
+    border-radius: 9px;
+    padding: 9px 11px;
+  }
+  .p-stat-val{
+    font-family:'JetBrains Mono',monospace;
+    font-weight:700; font-size:15px;
+    color: var(--green-bright);
+  }
+  .p-stat-val.na{ color: var(--text-faint); font-size:12px; }
+  .p-stat-lbl{ font-size:10px; color: var(--text-faint); text-transform:uppercase; letter-spacing:.06em; margin-top:2px; }
+
+  /* Monthly quota badge */
+  .quota-badge{
+    display:flex; align-items:center; gap:8px;
+    border-radius: 10px; padding: 10px 12px;
+    font-size: 12px; font-weight:700;
+    border: 1px solid;
+  }
+  .quota-badge.done{
+    background: var(--green-dim);
+    border-color: rgba(74,222,128,0.4);
+    color: var(--green-bright);
+  }
+  .quota-badge.fail{
+    background: var(--red-dim);
+    border-color: rgba(249,115,115,0.4);
+    color: var(--red);
+  }
+  .quota-badge.loading-q{
+    background: var(--bg-soft);
+    border-color: var(--border-soft);
+    color: var(--text-faint);
+  }
+  .quota-icon{ font-size:15px; flex-shrink:0; }
+  .quota-text{ flex:1; min-width:0; }
+  .quota-sub{ font-weight:400; font-size:10.5px; margin-top:1px; opacity:.75; }
+
+  /* Progress bar */
+  .quota-bar-wrap{
+    background: var(--bg); border-radius:6px; height:5px; overflow:hidden;
+  }
+  .quota-bar-fill{
+    height:100%; border-radius:6px;
+    transition: width .5s ease;
+  }
+  .quota-bar-fill.done{ background: var(--green); }
+  .quota-bar-fill.fail{ background: var(--red); }
+
+  .skeleton{ background: linear-gradient(90deg,var(--bg-soft) 25%,var(--card-hover) 37%,var(--bg-soft) 63%);
+    background-size: 400% 100%; animation: shimmer 1.4s infinite; border-radius:6px; }
+  @keyframes shimmer{ 0%{background-position:100% 50%} 100%{background-position:0 50%} }
+
+  footer{ margin-top: 56px; }
+  .foot-line{ border:none; border-top:1px solid var(--border-soft); }
+  .foot-copy{
+    text-align:center; color: var(--text-faint); font-size: 12.5px;
+    padding: 18px 0 4px;
+  }
+
+  @media (max-width: 380px){
+    .flip-card{ height: 372px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow"><span class="dot"></span> Live · Telegram Analytics</div>
+  <h1>Игровые каналы <span class="accent">в реальном времени</span></h1>
+
+  <div class="hero-row">
+    <div class="hero-stats">
+      <div>
+        <div class="stat-value" id="totalSubs">—</div>
+        <div class="stat-label">подписчиков всего</div>
+      </div>
+      <div>
+        <div class="stat-value" id="totalChannels">—</div>
+        <div class="stat-label">каналов</div>
+      </div>
+      <div>
+        <div class="stat-value mono" id="lastSync" style="font-size:20px;">—</div>
+        <div class="stat-label">последняя синхронизация</div>
+      </div>
+    </div>
+    <div class="hero-actions">
+      <button class="theme-toggle" id="themeToggle" aria-label="Включить светлую тему" title="Тема">☀️</button>
+      <button class="refresh-btn" id="refreshBtn">
+        <span class="spin">⟳</span> Обновить сейчас
+      </button>
+    </div>
+  </div>
+
+  <div id="groupsRoot"></div>
+
+  <footer>
+    <hr class="foot-line">
+    <p class="foot-copy">Все права принадлежат © Ctotut</p>
+  </footer>
+
+</div>
+
+<script>
+const STATS_URL = 'tgstats.json';
+const MONTHLY_QUOTA = 60;
+
+const GROUPS = [
+  { key: 'donatov',  name: 'Donatov.net' },
+  { key: 'vavinews', name: 'VAVINEWS' },
+  { key: 'ldshop',   name: 'Ldshop' },
+  { key: 'tencent',  name: 'TENCENT+', verified: true },
+];
+
+function escapeHtml(str){
+  return String(str || '').replace(/[&<>"']/g, c => (
+    { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]
+  ));
+}
+
+function verifiedBadgeSVG(){
+  return `<svg class="verified-badge" width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="Подтверждено">
+    <path d="M12 2.2l2.36 1.94 3.02-.64 1.1 2.9 2.86 1.28-.7 3.02 1.66 2.6-2.3 2.14.24 3.08-3.06.46-1.6 2.66-2.9-1.02-2.9 1.02-1.6-2.66-3.06-.46.24-3.08-2.3-2.14 1.66-2.6-.7-3.02 2.86-1.28 1.1-2.9 3.02.64z" fill="var(--green)"/>
+    <path d="M8.4 12.3l2.3 2.3 4.8-5" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </svg>`;
+}
+
+/* ---- Helpers ---- */
+function timeAgo(iso){
+  if(!iso) return '—';
+  const d = new Date(iso);
+  const diffMs = Date.now() - d.getTime();
+  const min = Math.floor(diffMs / 60000);
+  if(min < 1) return 'только что';
+  if(min < 60) return `${min} мин назад`;
+  const h = Math.floor(min / 60);
+  if(h < 24) return `${h} ч назад`;
+  const days = Math.floor(h / 24);
+  if(days < 30) return `${days} дн назад`;
+  const months = Math.floor(days / 30);
+  return `${months} мес назад`;
+}
+
+function pluralRu(n){
+  const m = n % 100;
+  if(m >= 11 && m <= 19) return 'ов';
+  switch(n % 10){
+    case 1: return '';
+    case 2: case 3: case 4: return 'а';
+    default: return 'ов';
+  }
+}
+
+// Считает посты за месяц/неделю/день из списка меток времени, собранных
+// парсером на t.me/s/<username> (обычно ~20 последних сообщений — этим же
+// ограничением был связан и live-скрейпинг в браузере раньше, так что
+// поведение квоты не поменялось).
+function computePeriodStats(postTimesIso){
+  const times = (postTimesIso || []).map(t => new Date(t).getTime()).filter(t => !isNaN(t));
+  const now = Date.now();
+  const msDay = 86400000, msWeek = 7 * msDay, msMonth = 30 * msDay;
+
+  const cMonth = times.filter(t => t >= now - msMonth).length;
+  const cWeek  = times.filter(t => t >= now - msWeek).length;
+  const cDay   = times.filter(t => t >= now - msDay).length;
+
+  const pct = Math.min(100, Math.round((cMonth / MONTHLY_QUOTA) * 100));
+  const done = cMonth >= MONTHLY_QUOTA;
+
+  return {
+    month: { count: cMonth, perDay: (cMonth / 30).toFixed(1) },
+    week:  { count: cWeek,  perDay: (cWeek / 7).toFixed(1) },
+    day:   { count: cDay,   perDay: (cDay / 24).toFixed(2) },
+    pct, done,
+    need: MONTHLY_QUOTA - cMonth,
+  };
+}
+
+/* ---- Build card (data is already known — no loading state needed) ---- */
+function buildCard(ch){
+  const username = ch.username;
+  const el = document.createElement('article');
+  el.className = 'card flip-card';
+  el.id = 'card-' + username;
+
+  const avatarInner = ch.avatar
+    ? `<img class="avatar" id="avatar-${username}" src="${ch.avatar}" alt="${escapeHtml(ch.title || username)}">`
+    : `<div class="avatar" id="avatar-${username}">${username[0].toUpperCase()}</div>`;
+
+  const subsText = ch.ok && ch.subs_raw ? ch.subs_raw : '—';
+  const statusText = ch.ok ? 'Данные актуальны' : 'Нет данных';
+  const statusClass = ch.ok ? '' : ' err';
+
+  const ps = computePeriodStats(ch.post_times);
+
+  const quotaClass = ch.ok ? (ps.done ? 'done' : 'fail') : 'loading-q';
+  const quotaIcon  = ch.ok ? (ps.done ? '✅' : '❌') : '⏳';
+  const quotaLine1 = ch.ok
+    ? (ps.done ? `Выполнено — ${ps.month.count} / ${MONTHLY_QUOTA} постов` : `Не выполнено — ${ps.month.count} / ${MONTHLY_QUOTA} постов`)
+    : 'Нет данных';
+  const quotaLine2 = ch.ok
+    ? (ps.done ? `Планка ${MONTHLY_QUOTA} постов/мес достигнута` : `Не хватает ещё ${ps.need} пост${pluralRu(ps.need)}`)
+    : `Планка: ${MONTHLY_QUOTA} постов / мес`;
+  const barClass = ch.ok ? (ps.done ? 'done' : 'fail') : 'fail';
+  const barWidth = ch.ok ? ps.pct : 0;
+
+  el.innerHTML = `
+    <div class="flip-inner" id="flip-inner-${username}">
+
+      <div class="flip-front">
+        <div class="card-main">
+          <div class="card-top">
+            ${avatarInner}
+            <div class="card-id">
+              <h3 id="title-${username}">${escapeHtml(ch.title || ('@' + username))}</h3>
+              <a href="https://t.me/${username}" target="_blank" rel="noopener" tabindex="-1">@${username}</a>
+            </div>
+          </div>
+          <div class="card-stats">
+            <div class="metric">
+              <div class="metric-value" id="subs-${username}">${subsText}</div>
+              <div class="metric-label">подписчиков</div>
+            </div>
+            <div class="metric">
+              <div class="metric-value muted" id="post-${username}">${timeAgo(ch.last_post_date)}</div>
+              <div class="metric-label">последний пост</div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <span class="status${statusClass}" id="status-${username}">${statusText}</span>
+            <a class="open-link" href="https://t.me/${username}" target="_blank" rel="noopener" tabindex="-1">Открыть ↗</a>
+          </div>
+        </div>
+        <button class="flip-btn" type="button" onclick="flipCard('${username}')">
+          <span>Детальная статистика</span><span class="flip-icon">⟲</span>
+        </button>
+      </div>
+
+      <div class="flip-back">
+        <div class="flip-back-head">
+          <button class="back-btn" type="button" onclick="flipCard('${username}')">← Назад</button>
+          <span class="flip-back-title">@${username}</span>
+        </div>
+        <div class="flip-back-body">
+          <div class="period-tabs">
+            <button class="period-tab active" type="button" onclick="switchTab('${username}','month',this)">Месяц</button>
+            <button class="period-tab" type="button" onclick="switchTab('${username}','week',this)">Неделя</button>
+            <button class="period-tab" type="button" onclick="switchTab('${username}','day',this)">День</button>
+          </div>
+
+          <div class="period-content active" id="tab-${username}-month">
+            <div class="period-stats">
+              <div class="p-stat"><div class="p-stat-val">${ps.month.count}</div><div class="p-stat-lbl">постов</div></div>
+              <div class="p-stat"><div class="p-stat-val">${ps.month.perDay}</div><div class="p-stat-lbl">постов/день</div></div>
+            </div>
+            <div class="quota-badge ${quotaClass}" style="margin-top:10px;">
+              <span class="quota-icon">${quotaIcon}</span>
+              <div class="quota-text">
+                <div>${quotaLine1}</div>
+                <div class="quota-sub">${quotaLine2}</div>
+              </div>
+            </div>
+            <div class="quota-bar-wrap" style="margin-top:8px;">
+              <div class="quota-bar-fill ${barClass}" style="width:${barWidth}%"></div>
+            </div>
+          </div>
+
+          <div class="period-content" id="tab-${username}-week">
+            <div class="period-stats">
+              <div class="p-stat"><div class="p-stat-val">${ps.week.count}</div><div class="p-stat-lbl">постов</div></div>
+              <div class="p-stat"><div class="p-stat-val">${ps.week.perDay}</div><div class="p-stat-lbl">постов/день</div></div>
+            </div>
+          </div>
+
+          <div class="period-content" id="tab-${username}-day">
+            <div class="period-stats">
+              <div class="p-stat"><div class="p-stat-val">${ps.day.count}</div><div class="p-stat-lbl">постов</div></div>
+              <div class="p-stat"><div class="p-stat-val">${ps.day.perDay}</div><div class="p-stat-lbl">постов/час</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  `;
+  return el;
+}
+
+/* ---- Build groups + carousels from fetched data ---- */
+function buildGroupsUI(channels){
+  const root = document.getElementById('groupsRoot');
+  root.innerHTML = '';
+
+  GROUPS.forEach(g=>{
+    const groupChannels = channels.filter(c => c.group === g.key);
+    if(!groupChannels.length) return;
+    const isSingle = groupChannels.length <= 1;
+
+    const section = document.createElement('section');
+    section.className = 'group';
+    section.innerHTML = `
+      <div class="group-head">
+        <h2>${g.name}</h2>
+        ${g.verified ? verifiedBadgeSVG() : ''}
+      </div>
+      <div class="carousel-wrap${isSingle ? ' single' : ''}" id="wrap-${g.key}">
+        <div class="carousel" id="car-${g.key}">
+          <button class="car-nav prev" type="button" aria-label="Предыдущий канал">‹</button>
+          <div class="carousel-track" id="grid-${g.key}"></div>
+          <button class="car-nav next" type="button" aria-label="Следующий канал">›</button>
+        </div>
+        <div class="carousel-dots" id="dots-${g.key}"></div>
+      </div>
+    `;
+    root.appendChild(section);
+
+    const track = document.getElementById('grid-' + g.key);
+    groupChannels.forEach(ch => track.appendChild(buildCard(ch)));
+  });
+
+  initCarousels();
+}
+
+/* ---- Carousel behaviour: peek next card, block interaction until it's
+   active. On wide enough screens (desktop, or a zoomed-out view) where
+   every card of a group already fits in a single row, switch to a plain
+   row layout instead — no scrolling, no "inactive" card, everything
+   visible and clickable. ---- */
+const CARD_ROW_WIDTH = 290;
+const CARD_GAP = 14;
+
+function initCarousels(){
+  document.querySelectorAll('.carousel-wrap:not(.single)').forEach(wrap=>{
+    const track = wrap.querySelector('.carousel-track');
+    const cards = Array.from(track.children);
+    if(cards.length <= 1) return;
+
+    const dotsWrap = wrap.querySelector('.carousel-dots');
+    cards.forEach((_, i)=>{
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'car-dot';
+      dot.setAttribute('aria-label', 'Слайд ' + (i + 1));
+      dot.addEventListener('click', ()=> scrollToCard(track, cards[i]));
+      dotsWrap.appendChild(dot);
+    });
+    const dots = Array.from(dotsWrap.children);
+
+    const prevBtn = wrap.querySelector('.car-nav.prev');
+    const nextBtn = wrap.querySelector('.car-nav.next');
+
+    function currentIndex(){
+      const idx = cards.findIndex(c => !c.classList.contains('inactive'));
+      return idx === -1 ? 0 : idx;
+    }
+
+    function updateActive(){
+      if(wrap.classList.contains('row-mode')) return;
+      const trackRect = track.getBoundingClientRect();
+      const center = trackRect.left + trackRect.width / 2;
+      let closestIdx = 0, closestDist = Infinity;
+      cards.forEach((c, i)=>{
+        const r = c.getBoundingClientRect();
+        const cCenter = r.left + r.width / 2;
+        const dist = Math.abs(cCenter - center);
+        if(dist < closestDist){ closestDist = dist; closestIdx = i; }
+      });
+      cards.forEach((c, i)=> c.classList.toggle('inactive', i !== closestIdx));
+      dots.forEach((d, i)=> d.classList.toggle('active', i === closestIdx));
+      prevBtn.disabled = closestIdx === 0;
+      nextBtn.disabled = closestIdx === cards.length - 1;
+    }
+
+    function applyMode(){
+      const requiredWidth = cards.length * CARD_ROW_WIDTH + (cards.length - 1) * CARD_GAP;
+      const availableWidth = wrap.clientWidth - 8;
+      const fits = availableWidth >= requiredWidth;
+      const wasRowMode = wrap.classList.contains('row-mode');
+      wrap.classList.toggle('row-mode', fits);
+      if(fits){
+        cards.forEach(c => c.classList.remove('inactive'));
+        dots.forEach(d => d.classList.remove('active'));
+      } else if(wasRowMode && !fits){
+        track.scrollLeft = 0;
+        updateActive();
+      } else if(!wasRowMode){
+        updateActive();
+      }
+    }
+
+    let raf;
+    track.addEventListener('scroll', ()=>{
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(updateActive);
+    }, { passive: true });
+
+    prevBtn.addEventListener('click', ()=>{
+      if(wrap.classList.contains('row-mode')) return;
+      const idx = currentIndex();
+      if(idx > 0) scrollToCard(track, cards[idx - 1]);
+    });
+    nextBtn.addEventListener('click', ()=>{
+      if(wrap.classList.contains('row-mode')) return;
+      const idx = currentIndex();
+      if(idx < cards.length - 1) scrollToCard(track, cards[idx + 1]);
+    });
+
+    if(window.ResizeObserver){
+      new ResizeObserver(()=> applyMode()).observe(wrap);
+    }
+    window.addEventListener('resize', applyMode);
+    applyMode();
+  });
+}
+
+function scrollToCard(track, card){
+  const trackRect = track.getBoundingClientRect();
+  const cardRect = card.getBoundingClientRect();
+  const offset = (cardRect.left + cardRect.width / 2) - (trackRect.left + trackRect.width / 2);
+  track.scrollBy({ left: offset, behavior: 'smooth' });
+}
+
+/* ---- Card flip (front <-> detailed stats) ---- */
+function flipCard(username){
+  const inner = document.getElementById('flip-inner-' + username);
+  if(inner) inner.classList.toggle('flipped');
+}
+
+/* ---- Tab switch ---- */
+function switchTab(username, period, btnEl){
+  ['month','week','day'].forEach(p=>{
+    const el = document.getElementById('tab-' + username + '-' + p);
+    if(el) el.classList.remove('active');
+  });
+  const target = document.getElementById('tab-' + username + '-' + period);
+  if(target) target.classList.add('active');
+  btnEl.closest('.period-tabs').querySelectorAll('.period-tab').forEach(b=>b.classList.remove('active'));
+  btnEl.classList.add('active');
+}
+
+/* ---- Theme (in-memory only, no storage) ---- */
+function setTheme(isLight){
+  const btn = document.getElementById('themeToggle');
+  if(isLight){
+    document.documentElement.setAttribute('data-theme', 'light');
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+  }
+  if(btn){
+    btn.textContent = isLight ? '🌙' : '☀️';
+    btn.setAttribute('aria-label', isLight ? 'Включить тёмную тему' : 'Включить светлую тему');
+  }
+}
+
+function initTheme(){
+  const btn = document.getElementById('themeToggle');
+  btn.addEventListener('click', ()=>{
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    setTheme(!isLight);
+  });
+}
+
+/* ---- Telegram Mini App integration ---- */
+function initTelegramWebApp(){
+  const tg = window.Telegram && window.Telegram.WebApp;
+  if(!tg) return;
+
+  tg.ready();
+  tg.expand();
+  if(tg.disableVerticalSwipes) tg.disableVerticalSwipes();
+
+  function syncViewportHeight(){
+    const h = tg.viewportStableHeight || tg.viewportHeight;
+    if(h) document.documentElement.style.setProperty('--tg-viewport-height', h + 'px');
+  }
+
+  function syncTheme(){
+    const isLight = tg.colorScheme === 'light';
+    setTheme(isLight);
+    const bg = isLight ? '#f4f5f7' : '#07080a';
+    const header = isLight ? '#ffffff' : '#0b0c0f';
+    if(tg.setBackgroundColor) tg.setBackgroundColor(bg);
+    if(tg.setHeaderColor) tg.setHeaderColor(header);
+  }
+
+  syncViewportHeight();
+  syncTheme();
+  tg.onEvent('themeChanged', syncTheme);
+  tg.onEvent('viewportChanged', syncViewportHeight);
+}
+
+/* ---- Load stats.json (pre-generated by the GitHub Action, see
+   scripts/fetch_stats.py + .github/workflows/update-stats.yml) ----
+   "Обновить сейчас" doesn't re-scrape Telegram live — it just re-pulls
+   the latest snapshot the Action already committed (bypassing cache).
+   Real freshness is governed by how often the Action runs (every 30 min). */
+function loadStats(bust){
+  const url = STATS_URL + (bust ? ('?t=' + Date.now()) : '');
+  return fetch(url, { cache: bust ? 'no-store' : 'default' })
+    .then(res => {
+      if(!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    })
+    .then(data => {
+      renderAll(data);
+      return data;
+    })
+    .catch(err => {
+      console.error('Не удалось загрузить tgstats.json', err);
+      document.getElementById('groupsRoot').innerHTML =
+        '<p style="color:var(--text-faint);font-size:13px;">Не удалось загрузить tgstats.json — проверьте, что файл лежит рядом со страницей и что GitHub Action хотя бы раз отработал.</p>';
+    });
+}
+
+function renderAll(data){
+  const channels = data.channels || [];
+
+  document.getElementById('totalChannels').textContent = channels.length;
+  document.getElementById('totalSubs').textContent =
+    (typeof data.total === 'number') ? data.total.toLocaleString('ru-RU') + '+' : '—';
+  document.getElementById('lastSync').textContent = data.updated_at
+    ? new Date(data.updated_at).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })
+    : '—';
+
+  buildGroupsUI(channels);
+}
+
+initTheme();
+initTelegramWebApp();
+
+const refreshBtn = document.getElementById('refreshBtn');
+refreshBtn.addEventListener('click', ()=>{
+  refreshBtn.classList.add('loading');
+  refreshBtn.disabled = true;
+  loadStats(true).finally(()=>{
+    refreshBtn.classList.remove('loading');
+    refreshBtn.disabled = false;
+  });
+});
+
+loadStats(false);
+setInterval(()=> loadStats(true), 5 * 60 * 1000);
+</script>
+</body>
+</html>

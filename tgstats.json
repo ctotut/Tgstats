@@ -1,0 +1,105 @@
+{
+  "updated_at": null,
+  "total": null,
+  "channels": [
+    {
+      "username": "IdentityV_Official",
+      "group": "donatov",
+      "title": "@IdentityV_Official",
+      "avatar": null,
+      "subs": null,
+      "subs_raw": null,
+      "ok": false,
+      "last_post_date": null,
+      "post_times": []
+    },
+    {
+      "username": "BloodStrike_OfficialRu",
+      "group": "donatov",
+      "title": "@BloodStrike_OfficialRu",
+      "avatar": null,
+      "subs": null,
+      "subs_raw": null,
+      "ok": false,
+      "last_post_date": null,
+      "post_times": []
+    },
+    {
+      "username": "RobloxRu_Official",
+      "group": "donatov",
+      "title": "@RobloxRu_Official",
+      "avatar": null,
+      "subs": null,
+      "subs_raw": null,
+      "ok": false,
+      "last_post_date": null,
+      "post_times": []
+    },
+    {
+      "username": "RustMobileInfo",
+      "group": "vavinews",
+      "title": "@RustMobileInfo",
+      "avatar": null,
+      "subs": null,
+      "subs_raw": null,
+      "ok": false,
+      "last_post_date": null,
+      "post_times": []
+    },
+    {
+      "username": "valorantmobile",
+      "group": "vavinews",
+      "title": "@valorantmobile",
+      "avatar": null,
+      "subs": null,
+      "subs_raw": null,
+      "ok": false,
+      "last_post_date": null,
+      "post_times": []
+    },
+    {
+      "username": "deltaforce_ru",
+      "group": "vavinews",
+      "title": "@deltaforce_ru",
+      "avatar": null,
+      "subs": null,
+      "subs_raw": null,
+      "ok": false,
+      "last_post_date": null,
+      "post_times": []
+    },
+    {
+      "username": "pubg_mobile_ruhub",
+      "group": "ldshop",
+      "title": "@pubg_mobile_ruhub",
+      "avatar": null,
+      "subs": null,
+      "subs_raw": null,
+      "ok": false,
+      "last_post_date": null,
+      "post_times": []
+    },
+    {
+      "username": "steam_news_ruhub",
+      "group": "ldshop",
+      "title": "@steam_news_ruhub",
+      "avatar": null,
+      "subs": null,
+      "subs_raw": null,
+      "ok": false,
+      "last_post_date": null,
+      "post_times": []
+    },
+    {
+      "username": "play_rustmobile",
+      "group": "tencent",
+      "title": "@play_rustmobile",
+      "avatar": null,
+      "subs": null,
+      "subs_raw": null,
+      "ok": false,
+      "last_post_date": null,
+      "post_times": []
+    }
+  ]
+}
