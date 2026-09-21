@@ -4,21 +4,18 @@
 сохраняет статистику в tgstats.json в корне репозитория.
 
 Запускается по расписанию через GitHub Actions
-(.github/workflows/update-stats.yml) прямо на серверах GitHub —
-поэтому браузеру никогда не приходится ходить в Telegram напрямую
-и упираться в CORS/прокси. Страница просто читает готовый json.
+(.github/workflows/update-stats.yml) прямо на серверах GitHub.
 
-Устроено по образцу scripts/fetch_stats.py с резюме-сайта, но:
-  - каждому каналу добавлено поле "group" (для группировки на странице)
-  - вместо текста последнего поста сохраняется список меток времени
-    всех постов с превью-страницы (post_times) — по ним на странице
-    считается "постов за месяц/неделю/день" и квота
+Считаются ВСЕ посты за последние WINDOW_DAYS (30) дней: превью-страница
+отдаёт только ~20 последних сообщений, поэтому скрипт листает историю
+назад через t.me/s/<username>?before=<id>, пока не дойдёт до поста старше
+30 дней (или до начала канала).
 """
 
 import json
-import re
 import sys
-from datetime import datetime, timezone
+import time
+from datetime import datetime, timedelta, timezone
 
 import requests
 from bs4 import BeautifulSoup
@@ -40,6 +37,10 @@ HEADERS = {
     "User-Agent": "Mozilla/5.0 (compatible; StatsBot/1.0; +https://github.com/)"
 }
 
+WINDOW_DAYS = 30     # за сколько дней считаем посты
+MAX_PAGES = 150      # предохранитель: ~20 постов на страницу
+PAGE_DELAY = 0.7     # пауза между запросами, чтобы не словить лимит
+
 
 def parse_count(raw: str):
     if not raw:
@@ -58,24 +59,61 @@ def parse_count(raw: str):
         return None
 
 
+def get_page(url: str, retries: int = 3) -> requests.Response:
+    for attempt in range(retries):
+        try:
+            resp = requests.get(url, headers=HEADERS, timeout=15)
+            resp.raise_for_status()
+            return resp
+        except requests.RequestException:
+            if attempt == retries - 1:
+                raise
+            time.sleep(2 * (attempt + 1))
+
+
+def extract_posts(soup):
+    """Возвращает список (id, iso_строка, datetime) по всем сообщениям страницы."""
+    items = []
+    for msg in soup.select(".tgme_widget_message[data-post]"):
+        try:
+            post_id = int(msg["data-post"].rsplit("/", 1)[-1])
+        except (ValueError, KeyError):
+            continue
+        time_node = msg.select_one(".tgme_widget_message_date time")
+        iso = time_node.get("datetime") if time_node else None
+        if not iso:
+            continue
+        try:
+            dt = datetime.fromisoformat(iso)
+        except ValueError:
+            continue
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=timezone.utc)
+        items.append((post_id, iso, dt))
+    return items
+
+
+def empty_result(username: str, group: str):
+    return {
+        "username": username,
+        "group": group,
+        "title": f"@{username}",
+        "avatar": None,
+        "subs": None,
+        "subs_raw": None,
+        "ok": False,
+        "last_post_date": None,
+        "post_times": [],
+    }
+
+
 def fetch_channel(username: str, group: str):
-    url = f"https://t.me/s/{username}"
+    base = f"https://t.me/s/{username}"
     try:
-        resp = requests.get(url, headers=HEADERS, timeout=15)
-        resp.raise_for_status()
+        resp = get_page(base)
     except requests.RequestException as e:
         print(f"[!] {username}: ошибка запроса — {e}", file=sys.stderr)
-        return {
-            "username": username,
-            "group": group,
-            "title": f"@{username}",
-            "avatar": None,
-            "subs": None,
-            "subs_raw": None,
-            "ok": False,
-            "last_post_date": None,
-            "post_times": [],
-        }
+        return empty_result(username, group)
 
     soup = BeautifulSoup(resp.text, "html.parser")
 
@@ -98,15 +136,48 @@ def fetch_channel(username: str, group: str):
     if not ok:
         print(f"[!] {username}: не удалось распарсить число подписчиков", file=sys.stderr)
 
-    # Превью-страница отдаёт ~20 последних сообщений — собираем все метки
-    # времени, чтобы на странице посчитать посты за месяц/неделю/день.
-    post_times = []
-    for time_node in soup.select(".tgme_widget_message_date time"):
-        dt = time_node.get("datetime")
-        if dt:
-            post_times.append(dt)
+    # ---- листаем историю назад до границы WINDOW_DAYS ----
+    cutoff = datetime.now(timezone.utc) - timedelta(days=WINDOW_DAYS)
+    posts = {}          # id -> (iso, dt), дедупликация по id
+    prev_min_id = None
+    page = soup
+    pages_loaded = 0
 
-    last_post_date = post_times[-1] if post_times else None
+    for _ in range(MAX_PAGES):
+        items = extract_posts(page)
+        if not items:
+            break
+        pages_loaded += 1
+        for pid, iso, dt in items:
+            posts[pid] = (iso, dt)
+
+        min_id = min(pid for pid, _, _ in items)
+        oldest_dt = min(dt for _, _, dt in items)
+
+        if oldest_dt < cutoff:      # дошли до постов старше 30 дней
+            break
+        if min_id <= 1:             # начало канала
+            break
+        if prev_min_id is not None and min_id >= prev_min_id:
+            break                   # страница не сдвинулась — защита от цикла
+        prev_min_id = min_id
+
+        time.sleep(PAGE_DELAY)
+        try:
+            page = BeautifulSoup(get_page(f"{base}?before={min_id}").text, "html.parser")
+        except requests.RequestException as e:
+            print(f"[!] {username}: не удалось загрузить старые посты — {e}", file=sys.stderr)
+            break
+    else:
+        print(f"[!] {username}: достигнут лимит {MAX_PAGES} страниц", file=sys.stderr)
+
+    in_window = sorted(
+        (v for v in posts.values() if v[1] >= cutoff), key=lambda v: v[1]
+    )
+    post_times = [iso for iso, _ in in_window]
+    last_post_date = max(posts.values(), key=lambda v: v[1])[0] if posts else None
+
+    print(f"    {username}: {len(post_times)} постов за {WINDOW_DAYS} дн ({pages_loaded} стр.)")
 
     return {
         "username": username,
@@ -139,3 +210,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+  
