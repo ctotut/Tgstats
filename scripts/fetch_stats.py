@@ -38,6 +38,7 @@ HEADERS = {
 }
 
 WINDOW_DAYS = 30     # за сколько дней считаем посты
+COUNT_FORWARDS = False  # считать ли репосты из других каналов (False = только свои посты)
 MAX_PAGES = 150      # предохранитель: ~20 постов на страницу
 PAGE_DELAY = 0.7     # пауза между запросами, чтобы не словить лимит
 
@@ -72,7 +73,13 @@ def get_page(url: str, retries: int = 3) -> requests.Response:
 
 
 def extract_posts(soup):
-    """Возвращает список (id, iso_строка, datetime) по всем сообщениям страницы."""
+    """Возвращает список (id, iso_строка, datetime, kind) по сообщениям страницы.
+
+    kind:
+      "post"    — обычный пост канала (альбом = один пост)
+      "forward" — репост из другого канала
+      "service" — служебное сообщение (закреп, смена фото и т.п.) — постом не считается
+    """
     items = []
     for msg in soup.select(".tgme_widget_message[data-post]"):
         try:
@@ -89,7 +96,15 @@ def extract_posts(soup):
             continue
         if dt.tzinfo is None:
             dt = dt.replace(tzinfo=timezone.utc)
-        items.append((post_id, iso, dt))
+
+        classes = " ".join(msg.get("class", []))
+        if "service" in classes:
+            kind = "service"
+        elif msg.select_one(".tgme_widget_message_forwarded_from"):
+            kind = "forward"
+        else:
+            kind = "post"
+        items.append((post_id, iso, dt, kind))
     return items
 
 
@@ -148,11 +163,11 @@ def fetch_channel(username: str, group: str):
         if not items:
             break
         pages_loaded += 1
-        for pid, iso, dt in items:
-            posts[pid] = (iso, dt)
+        for pid, iso, dt, kind in items:
+            posts[pid] = (iso, dt, kind)
 
-        min_id = min(pid for pid, _, _ in items)
-        oldest_dt = min(dt for _, _, dt in items)
+        min_id = min(pid for pid, _, _, _ in items)
+        oldest_dt = min(dt for _, _, dt, _ in items)
 
         if oldest_dt < cutoff:      # дошли до постов старше 30 дней
             break
@@ -171,13 +186,20 @@ def fetch_channel(username: str, group: str):
     else:
         print(f"[!] {username}: достигнут лимит {MAX_PAGES} страниц", file=sys.stderr)
 
-    in_window = sorted(
-        (v for v in posts.values() if v[1] >= cutoff), key=lambda v: v[1]
-    )
-    post_times = [iso for iso, _ in in_window]
-    last_post_date = max(posts.values(), key=lambda v: v[1])[0] if posts else None
+    counted_kinds = {"post", "forward"} if COUNT_FORWARDS else {"post"}
+    window = [v for v in posts.values() if v[1] >= cutoff]
+    in_window = sorted((v for v in window if v[2] in counted_kinds), key=lambda v: v[1])
+    post_times = [iso for iso, _, _ in in_window]
 
-    print(f"    {username}: {len(post_times)} постов за {WINDOW_DAYS} дн ({pages_loaded} стр.)")
+    counted_all = [v for v in posts.values() if v[2] in counted_kinds]
+    last_post_date = max(counted_all, key=lambda v: v[1])[0] if counted_all else None
+
+    skipped_fwd = 0 if COUNT_FORWARDS else sum(1 for v in window if v[2] == "forward")
+    skipped_srv = sum(1 for v in window if v[2] == "service")
+    print(
+        f"    {username}: {len(post_times)} постов за {WINDOW_DAYS} дн "
+        f"(репостов пропущено: {skipped_fwd}, служебных: {skipped_srv}; {pages_loaded} стр.)"
+    )
 
     return {
         "username": username,
@@ -210,4 +232,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-  
+    
