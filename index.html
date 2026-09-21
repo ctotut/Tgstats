@@ -518,15 +518,31 @@ function pluralRu(n){
 }
 
 // Считает посты за месяц/неделю/день из списка меток времени, собранных
-// парсером на t.me/s/<username> (обычно ~20 последних сообщений — этим же
-// ограничением был связан и live-скрейпинг в браузере раньше, так что
-// поведение квоты не поменялось).
-function computePeriodStats(postTimesIso){
-  const times = (postTimesIso || []).map(t => new Date(t).getTime()).filter(t => !isNaN(t));
-  const now = Date.now();
-  const msDay = 86400000, msWeek = 7 * msDay, msMonth = 30 * msDay;
+// парсером (scripts/fetch_stats.py хранит посты за последние 35 дней).
+//  - «Месяц» = календарный месяц по Москве: счётчик обнуляется в 00:00 МСК
+//    первого числа каждого месяца.
+//  - «Неделя» = последние 7 суток, «День» = последние 24 часа.
+const MSK_OFFSET = 3 * 3600000; // МСК = UTC+3, без перехода на летнее время
+const MONTHS_GEN = ['января','февраля','марта','апреля','мая','июня',
+                    'июля','августа','сентября','октября','ноября','декабря'];
 
-  const cMonth = times.filter(t => t >= now - msMonth).length;
+function moscowMonthInfo(nowMs){
+  const m = new Date(nowMs + MSK_OFFSET);            // «стенные» часы МСК в UTC-геттерах
+  const y = m.getUTCFullYear(), mo = m.getUTCMonth();
+  return {
+    startMs: Date.UTC(y, mo, 1) - MSK_OFFSET,        // 00:00 МСК первого числа
+    dayOfMonth: m.getUTCDate(),                      // 1..31
+    label: 'с 1 ' + MONTHS_GEN[mo],
+  };
+}
+
+function computePeriodStats(postTimesIso, nowMs){
+  const times = (postTimesIso || []).map(t => new Date(t).getTime()).filter(t => !isNaN(t));
+  const now = (nowMs === undefined) ? Date.now() : nowMs;
+  const msDay = 86400000, msWeek = 7 * msDay;
+  const mi = moscowMonthInfo(now);
+
+  const cMonth = times.filter(t => t >= mi.startMs).length;
   const cWeek  = times.filter(t => t >= now - msWeek).length;
   const cDay   = times.filter(t => t >= now - msDay).length;
 
@@ -534,7 +550,7 @@ function computePeriodStats(postTimesIso){
   const done = cMonth >= MONTHLY_QUOTA;
 
   return {
-    month: { count: cMonth, perDay: (cMonth / 30).toFixed(1) },
+    month: { count: cMonth, perDay: (cMonth / mi.dayOfMonth).toFixed(1), label: mi.label },
     week:  { count: cWeek,  perDay: (cWeek / 7).toFixed(1) },
     day:   { count: cDay,   perDay: (cDay / 24).toFixed(2) },
     pct, done,
@@ -615,6 +631,7 @@ function buildCard(ch){
           </div>
 
           <div class="period-content active" id="tab-${username}-month">
+            <div class="quota-sub" style="margin-bottom:8px;">${ps.month.label} (МСК)</div>
             <div class="period-stats">
               <div class="p-stat"><div class="p-stat-val">${ps.month.count}</div><div class="p-stat-lbl">постов</div></div>
               <div class="p-stat"><div class="p-stat-val">${ps.month.perDay}</div><div class="p-stat-lbl">постов/день</div></div>
