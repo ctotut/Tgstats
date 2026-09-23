@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-23T12:55:31.607257+00:00",
+  "updated_at": "2026-09-23T17:44:11.209739+00:00",
   "total": 223171,
   "channels": [
     {
@@ -10,10 +10,8 @@
       "subs": 13000,
       "subs_raw": "13K",
       "ok": true,
-      "last_post_date": "2026-09-22T14:21:08+00:00",
+      "last_post_date": "2026-09-23T17:19:53+00:00",
       "post_times": [
-        "2026-08-24T15:51:39+00:00",
-        "2026-08-24T16:55:13+00:00",
         "2026-08-26T13:54:15+00:00",
         "2026-08-26T17:51:17+00:00",
         "2026-08-27T09:31:10+00:00",
@@ -86,20 +84,23 @@
         "2026-09-21T17:37:40+00:00",
         "2026-09-21T17:47:48+00:00",
         "2026-09-22T14:18:32+00:00",
-        "2026-09-22T14:21:08+00:00"
+        "2026-09-22T14:21:08+00:00",
+        "2026-09-23T17:05:01+00:00",
+        "2026-09-23T17:11:28+00:00",
+        "2026-09-23T17:17:17+00:00",
+        "2026-09-23T17:19:53+00:00"
       ]
     },
     {
       "username": "BloodStrike_OfficialRu",
       "group": "donatov",
       "title": "Blood Strike | Новости",
-      "avatar": "https://cdn4.telesco.pe/file/CaY4kZZwIZVJz2yDeARK13LlF76YWIsCRj9HDi5CDAcMhgutyOulecRMGRxZcylNMKiD5g1tygCZ2Zgpi3SGLk614ZnoXIAYLfpCDMUJHwwLADHB4-8qJv9f7sBqUQhvCU9PseznjRFwv6QhDH0wj4UvuZZvm4lLmNEx0PvgEzd11RExdhxffk5q4hbKXcI_jPkP5MMVNY8aKc2H_R0OBo1vwXWF7pz6RC-g8JAa2zbtkMNhS68AX9-g_UglxbWMT3NyDAA6s305Wefci_9NypLvs0eOeBHEVZQGFsfFz_ezmEUdHkwlBJZQuNQHInA80DY4s5FiMwdyYXMX4tXpqg.jpg",
+      "avatar": "https://cdn4.telesco.pe/file/MNj6XWTOuWwsjHg6I7ORmrEsp6mXu03l-hoYpp_7DB_XvYa3oDsaJWZXt9O1kZjdpu7V6eqA91Cl6vhSQOrJ-58ugWB5VYDWvVj1AnEm4qTt-h_qF4QQlDEzYlLmPjgZNp1V7EkIz3bvv22tP2_6TubWwdlQcDWQw1S7znq1YloCsJN35MIPyWe0FrSsZ6hf1osK4B9wvbna6IoiuWJ9ZIJoXD3UY_vfKQxRiXJny9eZBYSQgK8yJUiUbDS8YcnvBxMWz9IC3_5gAcCKGIPhDPaTKW4Z8c48tCrFtFwzNLidIJw3qUvanKVDUwshAGXHXzzfHAN_r3ftQUxjdELkyQ.jpg",
       "subs": 11700,
       "subs_raw": "11.7K",
       "ok": true,
       "last_post_date": "2026-09-23T12:41:36+00:00",
       "post_times": [
-        "2026-08-24T13:23:30+00:00",
         "2026-08-24T18:04:05+00:00",
         "2026-08-25T12:36:15+00:00",
         "2026-08-25T13:45:15+00:00",
@@ -203,13 +204,12 @@
       "username": "RustMobileInfo",
       "group": "vavinews",
       "title": "Rust Mobile",
-      "avatar": "https://cdn4.telesco.pe/file/PG6a4a31kUYIYUXK7KePtqonJ7YjEq_d2nua_F3SKAoer-9kpcS2_nGn8bFf0YlzumeyA-2V5PQ9-WMUVoXXWjXMFSxoJm4_gk4XP_sPdU_kaJdT3nlSVq0qzTLTCuMBPSgCV5fYrVElcHaZUny3E3qLsPN_Gy5BgIhl_buYqQcD1x0K-M6Zih7blF71JHgyz-2mZs5-LhJRcCp1_SMDAxvpmNXSlqBffXdvzGCeCRUUbu0uwQpCp-F-ATBGYT8e1mZKcz2EQXYwdu1XB6JlRjuOghmJTAUu-moRMmafjW_0NdSxYxwKYLutQ67rbkzxs8Yg2W3uSevQiusPSyjGtg.jpg",
+      "avatar": "https://cdn4.telesco.pe/file/WLG2QHsxV8JUVsfdN9McsjOp1uFYVe3yTs0w9jZ0nXz5VnjjWs95N37Qv4Og7K-lqDAGtf6DKhLXPSWmNOYTcxjbE1ZmzrWnAW9dRSUs0HHouOzNNl1zJuvFqlUp-YfPc5sHV2czS0WuQP12ASc2koA6PJLmOW1XQoO5eeHb1PY49cekzipU5WBZCj9rymxEW58jty0wRA70dS7vUDY4d0lW-OBcMCKBMJ38r0_I92LBxIvWeAFZaaJp956MI2NT9LdxfRAUHgRcBGgf-NAg5QI53Z7x8_75ydI9UZtfJD-fvJPHPJqxsFvjkHzyO5FvG6Dm7TwobrOkfFzeywZs_w.jpg",
       "subs": 70300,
       "subs_raw": "70.3K",
       "ok": true,
       "last_post_date": "2026-09-14T16:24:42+00:00",
       "post_times": [
-        "2026-08-24T14:46:27+00:00",
         "2026-08-24T19:40:28+00:00",
         "2026-08-25T01:02:49+00:00",
         "2026-08-25T07:45:32+00:00",
@@ -247,7 +247,6 @@
       "ok": true,
       "last_post_date": "2026-09-22T11:57:53+00:00",
       "post_times": [
-        "2026-08-24T17:01:59+00:00",
         "2026-08-25T16:11:37+00:00",
         "2026-08-27T08:00:42+00:00",
         "2026-08-29T05:15:48+00:00",
@@ -334,11 +333,11 @@
       "username": "pubg_mobile_ruhub",
       "group": "ldshop",
       "title": "PUBG Mobile | Новости и розыгрыши",
-      "avatar": "https://cdn4.telesco.pe/file/sJkf26R6aCEerCFQegO63nzOGMesKrez_eXJUqAWjMK1s4YnwswD3RCgXDFwGM7UzXJXrZGpATBF63iAkTJ745bBfuMdXYzQIEgkpo8FyQ3sbM4zQVcUjql38Nz4lInXlXGKHUb_PTve1X66ACojAOfquCgp8-xxyC7MTo0-DaamXgRPfZlT66dNQQcduNCGxV0NhrLfWpdbdDURRf_rNMdIhnVSYI801x4m8pqIttlk4i0NI8o9B7prFzuR0mLYH89dTRw2AailNy-RxS3LY7QDKYwVUKJuUM-GNQXMCbCiG_BAqCQg-Ez_9dbYzf1M3ploztTi7EnHO8ZMxiQ6_A.jpg",
+      "avatar": "https://cdn4.telesco.pe/file/OA9XobRyJU18agnvFFlQLNtd9OnekPYfyUFkRXK2h25l83_ZhuQyEn-ws_6K7jROgyDbLgLvaelmHqGUjAVgv1Z8pOPgiuBubAc4JnkrKruFzJTtv_2QoYe0rcNfx02VHcZ2JuN8OOsXTQDkaaLTNDR98z2fPvIdOgAcoVGPvyQnUv4c_7Vv-8vEbJtzmliywHs2aJPzg6Ti451ixJ3yjhBShUBM_zDqvL6up42uBiciHFsfL5n8082DOmxiZJejHpM_AMBdyUjhW-4c1kX1n0vmzW7vdwgCktZbmeWYKxfB2Gz_-KWor-RkpftLbwEJN4L6223WuyZ_Dj4EzLOHVQ.jpg",
       "subs": 11,
       "subs_raw": "11",
       "ok": true,
-      "last_post_date": "2026-09-23T07:14:15+00:00",
+      "last_post_date": "2026-09-23T17:28:02+00:00",
       "post_times": [
         "2026-09-11T17:20:17+00:00",
         "2026-09-11T19:20:44+00:00",
@@ -379,14 +378,15 @@
         "2026-09-21T15:29:39+00:00",
         "2026-09-21T18:56:26+00:00",
         "2026-09-23T06:47:28+00:00",
-        "2026-09-23T07:14:15+00:00"
+        "2026-09-23T07:14:15+00:00",
+        "2026-09-23T17:28:02+00:00"
       ]
     },
     {
       "username": "steam_news_ruhub",
       "group": "ldshop",
       "title": "Steam | Игры, скидки и раздачи",
-      "avatar": "https://cdn5.telesco.pe/file/p-foPQGeAWdYbA7n634S5gG3kmylUmnAAyDzUbKs2cw1slFIKuZmXZpvZWtUBTi3aO-JEAx6UXJSR82Rt6nwWCbx4uQ66zOs2zprIoaNC7XLdguKBslJh4pM00rNk04QH0Oo0gOp1UeogZwjAT2TYQWaO2q7ba8Wm41rWsppHubHUbFqpsvVfS7W2Xp4f6fTaP2yo13IurCTbbG2LuKfa3JM5t3E4WV4NTRypV5pU0nvdbl_1QScNiW-0FqX7y3b_V6JkQUfdL00wGTcGKJm-Xk_ZpZDmqDGfRZw6x-DsmcsBfoVG7uLc0tP_2H7yknnXqf2e525WoYkee6bzVdl-A.jpg",
+      "avatar": "https://cdn5.telesco.pe/file/HiVwl8wmLrBcCW1JQlIbZ6-TxFFO3EUQ3LW5ZD5rUwVNUw7lYZv6Z3wHZQRjgORu3znx--q0C491D7XyM_-46KU-ZFlvIYzHR9o0BwJ_UpQHKb08TpiavqBglRNNYyY0UbrjBOfHjJD2kJTgzgwS_2DEEdlmGWYf7-plnTzx5KEk8iNUz14eIDSgb6Z62fkYuEiGGJhr77uhyhTqtaab39lFwrgJ_rLZDVen4sXA2wY5EThMB7w1brrK2fqvuhWfngKIbxbmFERNqURr1Ij_DeA3h3-gF423P6NLJ69LusuNEZCPpvbu-fzJHQ2rTLP7-ux411MGwyM4MOWkskY_5w.jpg",
       "subs": 10,
       "subs_raw": "10",
       "ok": true,
@@ -422,9 +422,8 @@
       "subs": 44600,
       "subs_raw": "44.6K",
       "ok": true,
-      "last_post_date": "2026-09-23T09:00:53+00:00",
+      "last_post_date": "2026-09-23T14:00:52+00:00",
       "post_times": [
-        "2026-08-24T15:34:19+00:00",
         "2026-08-25T09:00:57+00:00",
         "2026-08-25T11:15:11+00:00",
         "2026-08-25T12:03:00+00:00",
@@ -474,7 +473,8 @@
         "2026-09-21T15:01:53+00:00",
         "2026-09-22T12:34:26+00:00",
         "2026-09-22T15:01:30+00:00",
-        "2026-09-23T09:00:53+00:00"
+        "2026-09-23T09:00:53+00:00",
+        "2026-09-23T14:00:52+00:00"
       ]
     }
   ]
