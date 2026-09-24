@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-09-24T08:40:47.171700+00:00",
-  "total": 223174,
+  "updated_at": "2026-09-24T14:03:25.259450+00:00",
+  "total": 223074,
   "channels": [
     {
       "username": "IdentityV_Official",
@@ -10,7 +10,7 @@
       "subs": 13000,
       "subs_raw": "13K",
       "ok": true,
-      "last_post_date": "2026-09-23T17:19:53+00:00",
+      "last_post_date": "2026-09-24T13:44:04+00:00",
       "post_times": [
         "2026-08-26T13:54:15+00:00",
         "2026-08-26T17:51:17+00:00",
@@ -88,7 +88,8 @@
         "2026-09-23T17:05:01+00:00",
         "2026-09-23T17:11:28+00:00",
         "2026-09-23T17:17:17+00:00",
-        "2026-09-23T17:19:53+00:00"
+        "2026-09-23T17:19:53+00:00",
+        "2026-09-24T13:44:04+00:00"
       ]
     },
     {
@@ -101,8 +102,6 @@
       "ok": true,
       "last_post_date": "2026-09-23T12:41:36+00:00",
       "post_times": [
-        "2026-08-25T12:36:15+00:00",
-        "2026-08-25T13:45:15+00:00",
         "2026-08-25T17:48:07+00:00",
         "2026-08-26T17:11:43+00:00",
         "2026-08-27T16:53:51+00:00",
@@ -160,7 +159,6 @@
       "ok": true,
       "last_post_date": "2026-09-23T18:46:23+00:00",
       "post_times": [
-        "2026-08-25T13:01:55+00:00",
         "2026-08-26T12:29:47+00:00",
         "2026-08-26T15:35:45+00:00",
         "2026-08-28T16:57:09+00:00",
@@ -203,12 +201,11 @@
       "group": "vavinews",
       "title": "Rust Mobile",
       "avatar": "https://cdn4.telesco.pe/file/WLG2QHsxV8JUVsfdN9McsjOp1uFYVe3yTs0w9jZ0nXz5VnjjWs95N37Qv4Og7K-lqDAGtf6DKhLXPSWmNOYTcxjbE1ZmzrWnAW9dRSUs0HHouOzNNl1zJuvFqlUp-YfPc5sHV2czS0WuQP12ASc2koA6PJLmOW1XQoO5eeHb1PY49cekzipU5WBZCj9rymxEW58jty0wRA70dS7vUDY4d0lW-OBcMCKBMJ38r0_I92LBxIvWeAFZaaJp956MI2NT9LdxfRAUHgRcBGgf-NAg5QI53Z7x8_75ydI9UZtfJD-fvJPHPJqxsFvjkHzyO5FvG6Dm7TwobrOkfFzeywZs_w.jpg",
-      "subs": 70300,
-      "subs_raw": "70.3K",
+      "subs": 70200,
+      "subs_raw": "70.2K",
       "ok": true,
       "last_post_date": "2026-09-24T05:21:07+00:00",
       "post_times": [
-        "2026-08-25T11:26:56+00:00",
         "2026-08-25T16:53:51+00:00",
         "2026-08-27T06:18:48+00:00",
         "2026-08-28T13:23:24+00:00",
@@ -237,11 +234,11 @@
       "username": "valorantmobile",
       "group": "vavinews",
       "title": "Valorant Mobile",
-      "avatar": "https://cdn4.telesco.pe/file/IZeIKfZisS2QkHsdPXQ6AoJjdFClIlz4zEz4mXmmENvaCFOye3eNaBWZDsrPLrG_V4MimQpV49PM1XdvTiNiOz4LtcfxKJRNcWPXPtq5WcDEapkX49oQoTvwXqgJiwKCxnqyZWu3e_5PzY5KyoeGc6Prx9XMDGX8X6aux1wvx1II_F78Uy8hbhn4lU9QO6oacenDWixlCuzZk9p8DkzdID7MuVWSXZD9FIOoxuogdo2xSJW9-SuUujCRgUsK5TjUAyGpQ21eyvj_-KE3nk79MuKu-OYtP08EEV-2oQXMU1YlJ17TzLPLtCX-CJ56D9ScXchGYSorQp05cRkFwJbNow.jpg",
+      "avatar": "https://cdn4.telesco.pe/file/l46rXK0lrCMIfb71AMekAtCkV7Ee0KeFMvAUvOeOZeiWU14OU0GwZhzxyFs67QYv9_bOIvFOseD38qw_MV6Y6HDvoNNQnuJIWEA_26Qbkh9bNeY6zBcULSlgVeoxVevSYdt3yXAZMWLHICo3Ad-EYBTNgD5Bkt_tnErJymLHkLABUzY3FwDZdjkHRa0umSJTacYtOD8MfsAcM8OT7QQoNyFsODpMAa8j4Egw6bykH4HF-A3wckp_8lnzgWzjmxpDEgOHW_tq37DRRVK4wjc_A-WFW3q5BeTiqlEQEYBNlFCiSIO33jZrZoR9iWv5h_ADQhCNcbb5UmbkCMHXwBAepw.jpg",
       "subs": 8750,
       "subs_raw": "8.75K",
       "ok": true,
-      "last_post_date": "2026-09-22T11:57:53+00:00",
+      "last_post_date": "2026-09-24T12:58:34+00:00",
       "post_times": [
         "2026-08-25T16:11:37+00:00",
         "2026-08-27T08:00:42+00:00",
@@ -265,7 +262,8 @@
         "2026-09-19T06:05:36+00:00",
         "2026-09-21T14:44:31+00:00",
         "2026-09-21T14:56:31+00:00",
-        "2026-09-22T11:57:53+00:00"
+        "2026-09-22T11:57:53+00:00",
+        "2026-09-24T12:58:34+00:00"
       ]
     },
     {
@@ -273,10 +271,10 @@
       "group": "vavinews",
       "title": "Delta Force",
       "avatar": "https://cdn4.telesco.pe/file/jD8CQgavv6tXwggmMUrfDHafpQbGVO67PGwuJ-XYwaPvO2IklAX4rrDNXT6jbfzv1rBn6GFXok5_AGCUSVaWOn1RRw5xyMOkMvM-2cK3-swp-LPq6rcgkSxJKP4e9lwUSTifZ6dXTIczNky5TTDBMb1VjenM0rp5i3KwmMVuthhQqBpW2ukl2Z4JIdzHDBhsupKlcFh7LEzJoKLn38g-8g6z4iytf6Uu_PXdGEx9ppJbDyrkmv0dD7z8V2rxVhbfsMi_1kyNvLZdXp6DtjfYyWtKahG_svhlydZnZc15IEOJqDuqAcwYwjAowecpB8JS2pYvIOC159UQUfqSo_mBoA.jpg",
-      "subs": 13700,
-      "subs_raw": "13.7K",
+      "subs": 13600,
+      "subs_raw": "13.6K",
       "ok": true,
-      "last_post_date": "2026-09-23T04:23:02+00:00",
+      "last_post_date": "2026-09-24T10:31:43+00:00",
       "post_times": [
         "2026-08-27T04:45:33+00:00",
         "2026-08-29T07:02:57+00:00",
@@ -322,18 +320,19 @@
         "2026-09-21T03:33:13+00:00",
         "2026-09-21T15:24:45+00:00",
         "2026-09-22T06:45:16+00:00",
-        "2026-09-23T04:23:02+00:00"
+        "2026-09-23T04:23:02+00:00",
+        "2026-09-24T10:31:43+00:00"
       ]
     },
     {
       "username": "pubg_mobile_ruhub",
       "group": "ldshop",
       "title": "PUBG Mobile | RuHUB",
-      "avatar": "https://cdn4.telesco.pe/file/rUz1XE2H3INbUAHTDlMhIFdgdwh2zEqGSTxZvS7ArdNPwQG7jHuv4d0VdoKx3Ee0EET6jNxofNUgaKhmV2rDQKY4emhqKxoztqMepGjDXY2SvX89AnkEwuskqD2-mF1NwfMM63L0dohYyhiVBXAPqRG_BbuhSmMAX0qqxBTJeyPayngPvxEo8EQVAtD2anlhBlkA81JqwWjXHg96nbsOhHYIejxBCtlsIeXGeA61TwD200RdLSur84v3cuIE0B51VApUdomYS2wlGB2dbj1CNbZAGO09u1bFrRlZj4FIVV8dVO6eA_qYBJeqpqR0y8QvV9eFQ0mfW2-jWM-Kqs7I5g.jpg",
+      "avatar": "https://cdn4.telesco.pe/file/nyeViBCGvEZBXh_n_Bb0HjedNunLwq24xYXZ0WDrjpdt1a9VFrMl2YBopKZWa3tnkGj2W1urholyEtsLMxhc_wWHXRUardNvzGoGCmgqyZClAFEnG-Qo7o6z0kR9WevrpGXFSdkiZomA2JdDgfJwhRjckyDXHOGdYM42VFEND47UubEj-CCjBOOdiyhaM2ym7Rx_W7lMQ7hNQJdQhSBXdRR11YxYVHy4T_oSej2TPOMU4lK698fXxyZOMGNJGi142n_50knOCAEdRrksNaHrYePkOMr9UVbcT_YPTBSUMvBqe-WDNonaOz15SPc-sv3cUydd3RmEHitcbTZZes_zOg.jpg",
       "subs": 14,
       "subs_raw": "14",
       "ok": true,
-      "last_post_date": "2026-09-24T08:40:29+00:00",
+      "last_post_date": "2026-09-24T12:28:43+00:00",
       "post_times": [
         "2026-09-11T17:20:17+00:00",
         "2026-09-11T19:20:44+00:00",
@@ -379,14 +378,15 @@
         "2026-09-23T21:09:14+00:00",
         "2026-09-23T23:25:22+00:00",
         "2026-09-24T07:12:59+00:00",
-        "2026-09-24T08:40:29+00:00"
+        "2026-09-24T08:40:29+00:00",
+        "2026-09-24T12:28:43+00:00"
       ]
     },
     {
       "username": "steam_news_ruhub",
       "group": "ldshop",
       "title": "Steam | RuHUB Игры, скидки и раздачи",
-      "avatar": "https://cdn5.telesco.pe/file/cAnrP-yPIZ9Iw6QMsOWE0w9CcqkEBkQuo4fnHJTGrQKkAAA1IaQbIxp1ErrxL3SJHPdKxxiGsT4N94rTxkbYbvNxb0UnjQG8_JXernAMmv5BWu97PVV0VsljE_O1InrnsMBw3Pp1kdp80oA_-JLUcQTtau6uIAn7VaPnXw4yHpieMJxvPaBXQSvkNRI441zvGB2rt_qof42TIjHYVc1dximpr22LhZ9MgGoG3-XHy2uCnSbVQw4KsS6j0TZq8pvB1Zd3hetd96ucs4vjjkCQGcsvwzSfDan4U3ataJuLHE0cRrJBoO8AP8Qdh884c4pvC-Qck-rbAslrtV0uGOvYDA.jpg",
+      "avatar": "https://cdn5.telesco.pe/file/argFixVO5JnWR-7Kz7-EHvV2NUT0gMcEBADCuQMnVQYhPs7HWDENqGvtI8jioSyJRNzf0EVDuePzhVojVlEj5VBvzkoiFqTcqO5_A30F-TWfZ6CeMi8MzD3P069FWswzRUi17V2wJ4X1ZM1DGaPyHG_5JMU8lZjupccW-25Xh9efpIyWlRbxoBmhzbUJiW64L5fVJ1yFWZejpxRjdvoGMWjzORnw_mUogBwNV9Nn6APRTLnV-6BOELeLzvQS3Qm5zCwm7QX_tV6koGyHVHWjah_Ou8l3Hav9Jrx8lrmxceUehvoXNBNRFCabOIpV8Fz4zcQQnWmUpiIj63F9RzLN3A.jpg",
       "subs": 10,
       "subs_raw": "10",
       "ok": true,
@@ -420,14 +420,11 @@
       "group": "tencent",
       "title": "Rust Mobile",
       "avatar": "https://cdn5.telesco.pe/file/X5ur5BLeivmcuXGJAHNysBIQgVaZ81qUfKuDBAzb2eqGXmCGcb67qt92aBrThtfC8K3fXfTFrsN3xAtnN9Arfri6GlWDAC4lIjL4CZAxvs0uCzxyp1kc05d316CgLzieEVz4_5EWxGVN5Dpgf2NRs7U-V4n7rwlGjRtfIItiq3DcDIxFe8CD7gfPEdNAVItAqyHsNjdvO0eWbjjYLx4O2ed_x_qWnIxHaf_pP-ZFGNk9MduhQeR1nWxvkUCOy-MlXLNdj8A6QgpLlWBkZfpeCnmRdIukUWm81G960jbUJ9Iaz1tf5nGDQHOuqCNPrIYqKMJ8vptWmQwA1yErH0VL8g.jpg",
-      "subs": 44600,
-      "subs_raw": "44.6K",
+      "subs": 44700,
+      "subs_raw": "44.7K",
       "ok": true,
-      "last_post_date": "2026-09-23T14:00:52+00:00",
+      "last_post_date": "2026-09-24T14:00:19+00:00",
       "post_times": [
-        "2026-08-25T09:00:57+00:00",
-        "2026-08-25T11:15:11+00:00",
-        "2026-08-25T12:03:00+00:00",
         "2026-08-25T15:30:01+00:00",
         "2026-08-25T17:02:12+00:00",
         "2026-08-26T15:13:56+00:00",
@@ -475,7 +472,8 @@
         "2026-09-22T12:34:26+00:00",
         "2026-09-22T15:01:30+00:00",
         "2026-09-23T09:00:53+00:00",
-        "2026-09-23T14:00:52+00:00"
+        "2026-09-23T14:00:52+00:00",
+        "2026-09-24T14:00:19+00:00"
       ]
     }
   ]
