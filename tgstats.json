@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-26T15:54:32.462925+00:00",
+  "updated_at": "2026-09-26T19:03:18.278759+00:00",
   "total": 229175,
   "channels": [
     {
@@ -10,7 +10,7 @@
       "subs": 13000,
       "subs_raw": "13K",
       "ok": true,
-      "last_post_date": "2026-09-26T01:59:59+00:00",
+      "last_post_date": "2026-09-26T16:53:30+00:00",
       "post_times": [
         "2026-08-27T19:30:32+00:00",
         "2026-08-28T10:37:07+00:00",
@@ -89,7 +89,9 @@
         "2026-09-24T13:44:04+00:00",
         "2026-09-24T16:59:18+00:00",
         "2026-09-25T02:03:42+00:00",
-        "2026-09-26T01:59:59+00:00"
+        "2026-09-26T01:59:59+00:00",
+        "2026-09-26T16:49:53+00:00",
+        "2026-09-26T16:53:30+00:00"
       ]
     },
     {
@@ -102,7 +104,6 @@
       "ok": true,
       "last_post_date": "2026-09-26T10:45:10+00:00",
       "post_times": [
-        "2026-08-27T16:53:51+00:00",
         "2026-08-28T16:20:09+00:00",
         "2026-08-29T12:07:06+00:00",
         "2026-08-30T16:02:20+00:00",
@@ -333,11 +334,11 @@
       "username": "pubg_mobile_ruhub",
       "group": "ldshop",
       "title": "PUBG Mobile | RuHUB",
-      "avatar": "https://cdn4.telesco.pe/file/IKrIDhJg4FmvZubFdF8auCiirOMHbcVUcBSOsO5NYGU7SF6xKQKyvf1fVRH743pyHTJL3Mc0kHlI8THRN8_JQwohZ4eGJVfgCe8KZDOLzaS1x7SWq7iZXv7xv3rqCYhuf9ghZ7dETmaLy7XEA0KSzAtuH5xph15jcb-MZdCU6_rYbnD8jJA5s9vainshJLGiX5biGXMF3C9UyGvewmTFDZP5Htnudg9LAJFOXa4TDzeHHb-wFSvCv8IEPLOFv2zzx06afH1GLNoIQ7UUw9_IWAk-iBodCbf3IreMc8tV82Y1NBHhgsNeF4o6At8T-IltnDFdrJ65Bb0cfR59hH-E1w.jpg",
+      "avatar": "https://cdn4.telesco.pe/file/NZJcCEkeW6ikZ_7UC-2DMyrXjUg_grWdnsOJndFUZxYqtlhl-YeQ11kEr19gr0k24jEXmY6cs8g9d6L3YBviAyWkEqxHPVWFbc4Z8p3UP7h_U6K9hxLm9iJoR4IrFoZYA8Y6m7ZSv1Wm4qELqbCBUUxlTTZur4mAx_E8x0r3rlchqe6Q7otAsY4pG5Zu1GmWG4WZpiTIeFMl0tU83NVJZsTjhwX_Z6ZlsrZAUjzgaFlsDjWvT37aZX9wU-473uXpo0mXNm20EA4mgx_PCByME2OkRRcNMfPcvopC9-LTZ26UkldxRMQbYk1HBYLtV1SipHqa0IfcOTi098Wcv4mu1A.jpg",
       "subs": 15,
       "subs_raw": "15",
       "ok": true,
-      "last_post_date": "2026-09-26T11:52:15+00:00",
+      "last_post_date": "2026-09-26T18:33:55+00:00",
       "post_times": [
         "2026-09-11T17:20:17+00:00",
         "2026-09-11T19:20:44+00:00",
@@ -393,14 +394,16 @@
         "2026-09-25T15:03:38+00:00",
         "2026-09-25T18:31:07+00:00",
         "2026-09-26T10:42:01+00:00",
-        "2026-09-26T11:52:15+00:00"
+        "2026-09-26T11:52:15+00:00",
+        "2026-09-26T16:13:56+00:00",
+        "2026-09-26T18:33:55+00:00"
       ]
     },
     {
       "username": "steam_news_ruhub",
       "group": "ldshop",
       "title": "Steam | RuHUB Игры, скидки и раздачи",
-      "avatar": "https://cdn5.telesco.pe/file/mx1w9x3g9f16KKIZdhTix4gY_mcCG9RBYzhIfMIMBgHiI30I4CFOt6TYxIPHPobiQPEX6RCKkZkXaw9FGj7ZrgIkR9Vkpnh74S33yzWN2xevZp6AvCHGkHWEDtFu8-T7_hWPDQYu5L0mo-YsHBluVa2R4VVHfGi-47UyKwhYp84FQ0MSbmgIc1Cl9Fwz9sFY-aGNQ6U5hatp6I79GEf-AsUXvTTA8X73_gBtZI1TyVN7zOphWDT0-rIxndqljeKHvyw9HZQ4EHKpQtoKGyTT1GXfgvsvj8c1UzonnwK2pRnrXw3xuueiyntkZb9m5bbJgzmxPlyFEETqwNkezQizww.jpg",
+      "avatar": "https://cdn5.telesco.pe/file/hoOKjb8Wp__K5fx9garHD_DllAlSPT37QDq3d8aKRZavTgt05JBVdZqw-HcsVDUJGawAFoRpB_amN9Zbczx82nloR8-BSdkBCPS8AfM5gjrdEmNsPOQu1qzgR2YUE5_Hb5zHFMj5BFLwlWU9SLWD9Muw_BeODvMpHtHg9b3jeFRpTdjz3_7x_LvotRp26r45iRkq0UvpyDvHvBEfihHfCk0TjjgJnUrXqXrWnGipoYy_PdnAb-IlLudA0nGXBl08m0dm8XTnZmq3D00BpQ-zpJ6w9EwpeYaNrIpDk9tqzIegV3S9L3BF93hR5hwJUnozYXz79CPg9ouheQ5SU4tvVw.jpg",
       "subs": 10,
       "subs_raw": "10",
       "ok": true,
