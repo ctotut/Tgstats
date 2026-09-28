@@ -2,8 +2,8 @@ name: Update channel stats
 
 on:
   schedule:
-    # каждые 30 минут
-    - cron: '*/30 * * * *'
+    # каждые 30 минут, но не ровно в :00 и :30 — в эти минуты GitHub часто пропускает запуски
+    - cron: '7,37 * * * *'
   workflow_dispatch: {}   # позволяет запустить вручную кнопкой в GitHub
 
 permissions:
