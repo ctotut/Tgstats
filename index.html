@@ -429,6 +429,27 @@
   .lp-btn:hover{ border-color: var(--green); }
   .lp-btn:active{ transform: scale(.98); }
 
+  .views-btn{
+    margin-top:10px; cursor:pointer; font-family:inherit;
+    background: var(--green-dim); color: var(--green-bright);
+    border:1px solid rgba(74,222,128,0.35); border-radius:10px;
+    font-size:12px; font-weight:700; padding:7px 12px;
+    letter-spacing:.02em; transition: border-color .15s ease, transform .15s ease;
+  }
+  .views-btn:hover{ border-color: var(--green); }
+  .views-btn:active{ transform: scale(.97); }
+
+  .v-list{ margin-top:12px; display:flex; flex-direction:column; }
+  .v-row{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    padding:9px 2px; border-bottom:1px solid var(--border-soft); font-size:13px;
+  }
+  .v-row:last-child{ border-bottom:none; }
+  .v-name{ min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color: var(--text); }
+  .v-val{ font-family:'JetBrains Mono',monospace; font-weight:700; color: var(--green-bright); flex-shrink:0; }
+  .v-val.na{ color: var(--text-faint); }
+  .v-title{ font-size:15px; font-weight:700; margin:0 30px 12px 0; }
+
   /* ===== Окошко с последним постом (как на сайте-резюме) ===== */
   .post-modal-overlay{
     position:fixed; inset:0; z-index:1000;
@@ -440,8 +461,7 @@
   .post-modal-overlay.open{ display:flex; }
   .post-modal{
     background: var(--card);
-    border:1px solid var(--border);
-    border-left:3px solid var(--green);
+    border:1px solid rgba(74,222,128,0.35);
     border-radius:16px;
     width:100%; max-width:520px; max-height:85vh;
     overflow-y:auto; overscroll-behavior: contain;
@@ -470,8 +490,9 @@
   .post-modal-username{ font-size:12px; color: var(--green); text-decoration:none; }
   .post-modal-username:hover{ color: var(--green-bright); }
   .post-modal-loading{ font-size:13px; color: var(--text-muted); text-align:center; padding:30px 0; }
-  .post-modal-embed{ margin-bottom:14px; border-radius:12px; overflow:hidden; }
-  .post-modal-embed iframe{ display:block; width:100% !important; }
+  .post-modal-embed{ margin-bottom:14px; border-radius:12px; overflow:hidden; background:#fff; }
+  html:not([data-theme="light"]) .post-modal-embed{ background:#1c1c1e; }
+  .post-modal-embed iframe{ display:block; width:100% !important; border:0; color-scheme:normal; }
   .post-modal-photo{ width:100%; border-radius:12px; margin-bottom:12px; display:block; max-height:320px; object-fit:cover; }
   .post-modal-text{
     font-size:14px; line-height:1.55; color: var(--text);
@@ -511,6 +532,7 @@
       <div>
         <div class="stat-value" id="totalSubs">—</div>
         <div class="stat-label">подписчиков всего</div>
+        <button class="views-btn" id="viewsBtn" type="button">Всего просмотров</button>
       </div>
       <div>
         <div class="stat-value" id="totalChannels">—</div>
@@ -553,6 +575,14 @@
       <span class="post-modal-date" id="postModalDate"></span>
       <a class="post-modal-link" id="postModalLink" href="#" target="_blank" rel="noopener">Открыть в Telegram ↗</a>
     </div>
+  </div>
+</div>
+
+<div class="post-modal-overlay" id="viewsOverlay">
+  <div class="post-modal" role="dialog" aria-modal="true">
+    <button class="post-modal-close" id="viewsClose" type="button" aria-label="Закрыть">✕</button>
+    <div class="v-title">Просмотры по всем каналам</div>
+    <div id="viewsBody"></div>
   </div>
 </div>
 
@@ -731,7 +761,7 @@ function buildCard(ch){
               <div class="metric-label">последний пост</div>
             </div>
           </div>
-          <button class="lp-btn" type="button" onclick="openLastPost('${username}')">📝 Последний пост</button>
+          <button class="lp-btn" type="button" onclick="openLastPost('${username}')">Последний пост</button>
           <div class="card-footer">
             <span class="status${statusClass}" id="status-${username}">${statusText}</span>
             <a class="open-link" href="https://t.me/${username}" target="_blank" rel="noopener" tabindex="-1">Открыть ↗</a>
@@ -967,6 +997,7 @@ function openLastPost(username){
     script.src = 'https://telegram.org/js/telegram-widget.js?22';
     script.setAttribute('data-telegram-post', postRef);
     script.setAttribute('data-width', '100%');
+    script.setAttribute('data-userpic', 'false');
     if(!isLight) script.setAttribute('data-dark', '1');
     embedHost.appendChild(script);
 
@@ -1013,6 +1044,71 @@ document.getElementById('postModalOverlay').addEventListener('click', e => {
 });
 document.addEventListener('keydown', e => {
   if(e.key === 'Escape' && document.getElementById('postModalOverlay').classList.contains('open')) closeLastPost();
+});
+
+/* ---- Окошко «Всего просмотров» ---- */
+function openViewsModal(){
+  const stats = Object.values(CHANNELS).map(ch => ({ ch, ps: computePeriodStats(ch) }));
+  const periods = [['month', 'Месяц'], ['week', 'Неделя'], ['day', 'День']];
+
+  function block(key){
+    let views = 0, posts = 0, postsWithViews = 0, any = false;
+    stats.forEach(({ ps }) => {
+      const b = ps[key];
+      posts += b.count;
+      if(b.views !== null){ any = true; views += b.views; postsWithViews += b.count; }
+    });
+    const rows = stats
+      .map(({ ch, ps }) => ({ name: ch.title || ('@' + ch.username), v: ps[key].views }))
+      .sort((a, b) => (b.v ?? -1) - (a.v ?? -1))
+      .map(r => `<div class="v-row"><span class="v-name">${escapeHtml(r.name)}</span><span class="v-val${r.v === null ? ' na' : ''}">${fmtNum(r.v)}</span></div>`)
+      .join('');
+    return `
+      <div class="period-stats">
+        <div class="p-stat"><div class="p-stat-val${any ? '' : ' na'}">${any ? fmtNum(views) : '—'}</div><div class="p-stat-lbl">просмотров</div></div>
+        <div class="p-stat"><div class="p-stat-val">${posts}</div><div class="p-stat-lbl">постов</div></div>
+        <div class="p-stat"><div class="p-stat-val${any && postsWithViews ? '' : ' na'}">${any && postsWithViews ? fmtNum(views / postsWithViews) : '—'}</div><div class="p-stat-lbl">просм. / пост</div></div>
+        <div class="p-stat"><div class="p-stat-val">${stats.length}</div><div class="p-stat-lbl">каналов</div></div>
+      </div>
+      <div class="v-list">${rows}</div>`;
+  }
+
+  const monthLabel = stats.length ? stats[0].ps.month.label + ' (МСК)' : '';
+  document.getElementById('viewsBody').innerHTML = `
+    <div class="period-tabs">
+      ${periods.map(([k, n], i) => `<button class="period-tab${i === 0 ? ' active' : ''}" type="button" onclick="switchViewsTab('${k}', this)">${n}</button>`).join('')}
+    </div>
+    <div class="quota-sub" id="vt-label" style="margin:10px 0 8px;">${monthLabel}</div>
+    ${periods.map(([k], i) => `<div class="period-content${i === 0 ? ' active' : ''}" id="vt-${k}">${block(k)}</div>`).join('')}
+  `;
+  window._vLabels = { month: monthLabel, week: 'последние 7 суток', day: 'последние 24 часа' };
+  document.getElementById('viewsOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function switchViewsTab(period, btn){
+  ['month','week','day'].forEach(p => {
+    const el = document.getElementById('vt-' + p);
+    if(el) el.classList.toggle('active', p === period);
+  });
+  btn.closest('.period-tabs').querySelectorAll('.period-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const lbl = document.getElementById('vt-label');
+  if(lbl && window._vLabels) lbl.textContent = window._vLabels[period];
+}
+
+function closeViewsModal(){
+  document.getElementById('viewsOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('viewsBtn').addEventListener('click', openViewsModal);
+document.getElementById('viewsClose').addEventListener('click', closeViewsModal);
+document.getElementById('viewsOverlay').addEventListener('click', e => {
+  if(e.target.id === 'viewsOverlay') closeViewsModal();
+});
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape' && document.getElementById('viewsOverlay').classList.contains('open')) closeViewsModal();
 });
 
 /* ---- Card flip (front <-> detailed stats) ---- */
