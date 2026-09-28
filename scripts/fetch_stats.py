@@ -32,6 +32,7 @@ STAT_CHANNELS = [
     {"username": "RobloxRu_Official",      "group": "donatov"},
     {"username": "marvel_rivals_oficcial", "group": "donatov"},
     {"username": "RustMobileInfo",         "group": "vavinews"},
+    {"username": "CallofDutyNews_ru",      "group": "vavinews"},
     {"username": "valorantmobile",         "group": "vavinews"},
     {"username": "deltaforce_ru",          "group": "vavinews"},
     {"username": "pubg_mobile_ruhub",      "group": "ldshop"},
