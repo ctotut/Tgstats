@@ -448,6 +448,23 @@
   .v-name{ min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color: var(--text); }
   .v-val{ font-family:'JetBrains Mono',monospace; font-weight:700; color: var(--green-bright); flex-shrink:0; }
   .v-val.na{ color: var(--text-faint); }
+  .v-total{ text-align:center; padding:14px 0 6px; }
+  .v-total-val{ font-family:'JetBrains Mono',monospace; font-weight:800; font-size:40px; color: var(--green-bright); letter-spacing:-0.02em; }
+  .v-total-val.na{ color: var(--text-faint); }
+  .v-cat{ border-bottom:1px solid var(--border-soft); }
+  .v-cat:last-child{ border-bottom:none; }
+  .v-cat-head{
+    width:100%; background:none; border:none; color: var(--text); cursor:pointer;
+    font-family:inherit; font-size:14px; font-weight:700; text-align:left;
+    display:flex; align-items:center; gap:10px; padding:12px 2px;
+  }
+  .v-cat-head .v-name{ flex:1; }
+  .v-chev{ color: var(--text-faint); font-size:18px; line-height:1; transition: transform .2s ease; }
+  .v-cat.open .v-chev{ transform: rotate(90deg); color: var(--green); }
+  .v-cat-body{ display:none; padding:0 0 8px 12px; }
+  .v-cat.open .v-cat-body{ display:block; }
+  .v-cat-body .v-row{ font-size:12.5px; padding:7px 2px; }
+  .v-cat-body .v-name{ color: var(--text-muted); }
   .v-title{ font-size:15px; font-weight:700; margin:0 30px 12px 0; }
 
   /* ===== Окошко с последним постом (как на сайте-резюме) ===== */
@@ -492,7 +509,11 @@
   .post-modal-loading{ font-size:13px; color: var(--text-muted); text-align:center; padding:30px 0; }
   .post-modal-embed{ margin-bottom:14px; border-radius:12px; overflow:hidden; background:#fff; }
   html:not([data-theme="light"]) .post-modal-embed{ background:#1c1c1e; }
-  .post-modal-embed iframe{ display:block; width:100% !important; border:0; color-scheme:normal; }
+  .post-modal-embed iframe{ display:block; width:100% !important; border:0; background:transparent; }
+  /* Виджет Telegram следует системной теме телефона. Если color-scheme у iframe
+     не совпадает с ней, браузер закрашивает iframe чёрным — отсюда чёрные края. */
+  @media (prefers-color-scheme: dark){ .post-modal-embed iframe{ color-scheme: dark; } }
+  @media (prefers-color-scheme: light){ .post-modal-embed iframe{ color-scheme: light; } }
   .post-modal-photo{ width:100%; border-radius:12px; margin-bottom:12px; display:block; max-height:320px; object-fit:cover; }
   .post-modal-text{
     font-size:14px; line-height:1.55; color: var(--text);
@@ -1051,26 +1072,42 @@ function openViewsModal(){
   const stats = Object.values(CHANNELS).map(ch => ({ ch, ps: computePeriodStats(ch) }));
   const periods = [['month', 'Месяц'], ['week', 'Неделя'], ['day', 'День']];
 
-  function block(key){
-    let views = 0, posts = 0, postsWithViews = 0, any = false;
-    stats.forEach(({ ps }) => {
-      const b = ps[key];
-      posts += b.count;
-      if(b.views !== null){ any = true; views += b.views; postsWithViews += b.count; }
+  function sumViews(items, key){
+    let views = 0, any = false;
+    items.forEach(({ ps }) => {
+      const v = ps[key].views;
+      if(v !== null){ any = true; views += v; }
     });
-    const rows = stats
-      .map(({ ch, ps }) => ({ name: ch.title || ('@' + ch.username), v: ps[key].views }))
-      .sort((a, b) => (b.v ?? -1) - (a.v ?? -1))
-      .map(r => `<div class="v-row"><span class="v-name">${escapeHtml(r.name)}</span><span class="v-val${r.v === null ? ' na' : ''}">${fmtNum(r.v)}</span></div>`)
-      .join('');
+    return any ? views : null;
+  }
+
+  function block(key){
+    const total = sumViews(stats, key);
+    const cats = GROUPS.map(g => {
+      const items = stats.filter(x => x.ch.group === g.key);
+      if(!items.length) return '';
+      const rows = items
+        .map(({ ch, ps }) => ({ name: ch.title || ('@' + ch.username), v: ps[key].views }))
+        .sort((a, b) => (b.v ?? -1) - (a.v ?? -1))
+        .map(r => `<div class="v-row"><span class="v-name">${escapeHtml(r.name)}</span><span class="v-val${r.v === null ? ' na' : ''}">${fmtNum(r.v)}</span></div>`)
+        .join('');
+      const gv = sumViews(items, key);
+      return `
+        <div class="v-cat">
+          <button class="v-cat-head" type="button" onclick="this.parentNode.classList.toggle('open')">
+            <span class="v-name">${escapeHtml(g.name)}</span>
+            <span class="v-val${gv === null ? ' na' : ''}">${fmtNum(gv)}</span>
+            <span class="v-chev">›</span>
+          </button>
+          <div class="v-cat-body">${rows}</div>
+        </div>`;
+    }).join('');
     return `
-      <div class="period-stats">
-        <div class="p-stat"><div class="p-stat-val${any ? '' : ' na'}">${any ? fmtNum(views) : '—'}</div><div class="p-stat-lbl">просмотров</div></div>
-        <div class="p-stat"><div class="p-stat-val">${posts}</div><div class="p-stat-lbl">постов</div></div>
-        <div class="p-stat"><div class="p-stat-val${any && postsWithViews ? '' : ' na'}">${any && postsWithViews ? fmtNum(views / postsWithViews) : '—'}</div><div class="p-stat-lbl">просм. / пост</div></div>
-        <div class="p-stat"><div class="p-stat-val">${stats.length}</div><div class="p-stat-lbl">каналов</div></div>
+      <div class="v-total">
+        <div class="v-total-val${total === null ? ' na' : ''}">${fmtNum(total)}</div>
+        <div class="stat-label">просмотров</div>
       </div>
-      <div class="v-list">${rows}</div>`;
+      <div class="v-list">${cats}</div>`;
   }
 
   const monthLabel = stats.length ? stats[0].ps.month.label + ' (МСК)' : '';
@@ -1078,7 +1115,7 @@ function openViewsModal(){
     <div class="period-tabs">
       ${periods.map(([k, n], i) => `<button class="period-tab${i === 0 ? ' active' : ''}" type="button" onclick="switchViewsTab('${k}', this)">${n}</button>`).join('')}
     </div>
-    <div class="quota-sub" id="vt-label" style="margin:10px 0 8px;">${monthLabel}</div>
+    <div class="quota-sub" id="vt-label" style="margin:10px 0 0;">${monthLabel}</div>
     ${periods.map(([k], i) => `<div class="period-content${i === 0 ? ' active' : ''}" id="vt-${k}">${block(k)}</div>`).join('')}
   `;
   window._vLabels = { month: monthLabel, week: 'последние 7 суток', day: 'последние 24 часа' };
