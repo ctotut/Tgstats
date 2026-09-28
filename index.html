@@ -442,6 +442,7 @@
     background: var(--card);
     border:1px solid var(--border);
     border-left:3px solid var(--green);
+    border-radius:16px;
     width:100%; max-width:520px; max-height:85vh;
     overflow-y:auto; overscroll-behavior: contain;
     padding:20px; position:relative;
@@ -469,9 +470,9 @@
   .post-modal-username{ font-size:12px; color: var(--green); text-decoration:none; }
   .post-modal-username:hover{ color: var(--green-bright); }
   .post-modal-loading{ font-size:13px; color: var(--text-muted); text-align:center; padding:30px 0; }
-  .post-modal-embed{ margin-bottom:14px; border-radius:6px; overflow:hidden; }
+  .post-modal-embed{ margin-bottom:14px; border-radius:12px; overflow:hidden; }
   .post-modal-embed iframe{ display:block; width:100% !important; }
-  .post-modal-photo{ width:100%; border-radius:6px; margin-bottom:12px; display:block; max-height:320px; object-fit:cover; }
+  .post-modal-photo{ width:100%; border-radius:12px; margin-bottom:12px; display:block; max-height:320px; object-fit:cover; }
   .post-modal-text{
     font-size:14px; line-height:1.55; color: var(--text);
     white-space:pre-wrap; word-break:break-word; margin-bottom:14px;
@@ -482,7 +483,7 @@
   .post-modal-link{
     display:inline-block; background: var(--green); color:#06140a;
     font-size:12px; font-weight:700; letter-spacing:.3px;
-    padding:8px 16px; text-decoration:none; border-radius:8px;
+    padding:9px 16px; text-decoration:none; border-radius:12px;
     transition: opacity .15s;
   }
   .post-modal-link:hover{ opacity:.85; }
