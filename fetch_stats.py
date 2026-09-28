@@ -11,9 +11,13 @@
 назад через t.me/s/<username>?before=<id>, пока не дойдёт до поста старше
 окна (или до начала канала). Календарный месяц (сброс 1-го числа по МСК)
 страница считает сама из этих меток времени.
+
+Для каждого поста сохраняем ещё и просмотры (за тот же период), а для
+последнего поста — текст, картинку и ссылку (для окошка «Последний пост»).
 """
 
 import json
+import re
 import sys
 import time
 from datetime import datetime, timedelta, timezone
@@ -74,8 +78,12 @@ def get_page(url: str, retries: int = 3) -> requests.Response:
             time.sleep(2 * (attempt + 1))
 
 
+BG_URL_RE = re.compile(r"url\(['\"]?(.*?)['\"]?\)")
+MAX_TEXT = 1500  # максимум символов текста последнего поста
+
+
 def extract_posts(soup):
-    """Возвращает список (id, iso_строка, datetime, kind) по сообщениям страницы.
+    """Возвращает список словарей по сообщениям страницы.
 
     kind:
       "post"    — обычный пост канала (альбом = один пост)
@@ -106,7 +114,31 @@ def extract_posts(soup):
             kind = "forward"
         else:
             kind = "post"
-        items.append((post_id, iso, dt, kind))
+
+        views_node = msg.select_one(".tgme_widget_message_views")
+        views = parse_count(views_node.get_text(strip=True)) if views_node else None
+
+        text = ""
+        text_node = msg.select_one(".tgme_widget_message_text")
+        if text_node:
+            for br in text_node.find_all("br"):
+                br.replace_with("\n")
+            text = text_node.get_text().strip()
+            if len(text) > MAX_TEXT:
+                text = text[:MAX_TEXT].rstrip() + "…"
+
+        image = None
+        media = msg.select_one(".tgme_widget_message_photo_wrap, .tgme_widget_message_video_thumb")
+        if media and media.get("style"):
+            m = BG_URL_RE.search(media["style"])
+            if m:
+                image = m.group(1)
+
+        items.append({
+            "id": post_id, "iso": iso, "dt": dt, "kind": kind,
+            "views": views, "text": text, "image": image,
+            "link": f"https://t.me/{msg['data-post']}",
+        })
     return items
 
 
@@ -120,6 +152,8 @@ def empty_result(username: str, group: str):
         "subs_raw": None,
         "ok": False,
         "last_post_date": None,
+        "last_post": None,
+        "posts": [],
         "post_times": [],
     }
 
@@ -155,7 +189,7 @@ def fetch_channel(username: str, group: str):
 
     # ---- листаем историю назад до границы WINDOW_DAYS ----
     cutoff = datetime.now(timezone.utc) - timedelta(days=WINDOW_DAYS)
-    posts = {}          # id -> (iso, dt), дедупликация по id
+    posts = {}          # id -> данные поста, дедупликация по id
     prev_min_id = None
     page = soup
     pages_loaded = 0
@@ -165,11 +199,11 @@ def fetch_channel(username: str, group: str):
         if not items:
             break
         pages_loaded += 1
-        for pid, iso, dt, kind in items:
-            posts[pid] = (iso, dt, kind)
+        for it in items:
+            posts[it["id"]] = it
 
-        min_id = min(pid for pid, _, _, _ in items)
-        oldest_dt = min(dt for _, _, dt, _ in items)
+        min_id = min(it["id"] for it in items)
+        oldest_dt = min(it["dt"] for it in items)
 
         if oldest_dt < cutoff:      # дошли до постов старше 30 дней
             break
@@ -189,19 +223,26 @@ def fetch_channel(username: str, group: str):
         print(f"[!] {username}: достигнут лимит {MAX_PAGES} страниц", file=sys.stderr)
 
     counted_kinds = {"post", "forward"} if COUNT_FORWARDS else {"post"}
-    window = [v for v in posts.values() if v[1] >= cutoff]
-    in_window = sorted((v for v in window if v[2] in counted_kinds), key=lambda v: v[1])
-    post_times = [iso for iso, _, _ in in_window]
+    window = [v for v in posts.values() if v["dt"] >= cutoff]
+    in_window = sorted((v for v in window if v["kind"] in counted_kinds), key=lambda v: v["dt"])
+    post_times = [v["iso"] for v in in_window]
+    # посты + просмотры за тот же период (t — время, v — просмотры)
+    posts_out = [{"t": v["iso"], "v": v["views"]} for v in in_window]
 
-    counted_all = [v for v in posts.values() if v[2] in counted_kinds]
-    last_post_date = max(counted_all, key=lambda v: v[1])[0] if counted_all else None
+    counted_all = [v for v in posts.values() if v["kind"] in counted_kinds]
+    last = max(counted_all, key=lambda v: v["dt"]) if counted_all else None
+    last_post_date = last["iso"] if last else None
+    last_post = {
+        "date": last["iso"], "views": last["views"], "text": last["text"],
+        "image": last["image"], "link": last["link"],
+    } if last else None
 
-    skipped_fwd = 0 if COUNT_FORWARDS else sum(1 for v in window if v[2] == "forward")
-    skipped_srv = sum(1 for v in window if v[2] == "service")
+    skipped_fwd = 0 if COUNT_FORWARDS else sum(1 for v in window if v["kind"] == "forward")
+    skipped_srv = sum(1 for v in window if v["kind"] == "service")
 
     # Для сверки с сайтом: сколько постов с 1-го числа текущего месяца (МСК)
     month_start = datetime.now(MSK).replace(day=1, hour=0, minute=0, second=0, microsecond=0)
-    month_count = sum(1 for _, dt, _ in in_window if dt >= month_start)
+    month_count = sum(1 for v in in_window if v["dt"] >= month_start)
     print(
         f"    {username}: {month_count} постов с 1-го числа "
         f"(за {WINDOW_DAYS} дн: {len(post_times)}; "
@@ -217,6 +258,8 @@ def fetch_channel(username: str, group: str):
         "subs_raw": subs_raw,
         "ok": ok,
         "last_post_date": last_post_date,
+        "last_post": last_post,
+        "posts": posts_out,
         "post_times": post_times,
     }
 

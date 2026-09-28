@@ -218,7 +218,7 @@
   /* ---------- Flip card ---------- */
   .card.flip-card{
     perspective: 1400px;
-    height: 348px;
+    height: 384px;
   }
   .flip-inner{
     position:relative;
@@ -417,6 +417,59 @@
     background-size: 400% 100%; animation: shimmer 1.4s infinite; border-radius:6px; }
   @keyframes shimmer{ 0%{background-position:100% 50%} 100%{background-position:0 50%} }
 
+  /* ---------- Кнопка «Последний пост» + окошко ---------- */
+  .lp-btn{
+    width:100%; cursor:pointer; font-family:inherit;
+    background: var(--green-dim); color: var(--green-bright);
+    border:1px solid rgba(74,222,128,0.35); border-radius:10px;
+    font-size:13px; font-weight:700; padding:10px 12px;
+    display:flex; align-items:center; justify-content:center; gap:6px;
+    transition: border-color .15s ease, transform .15s ease;
+  }
+  .lp-btn:hover{ border-color: var(--green); }
+  .lp-btn:active{ transform: scale(.98); }
+
+  .lp-overlay{
+    position:fixed; inset:0; z-index:1000;
+    background: rgba(0,0,0,.6);
+    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+    display:none; align-items:center; justify-content:center;
+    padding: 16px;
+  }
+  .lp-overlay.open{ display:flex; animation: lpFade .2s ease; }
+  @keyframes lpFade{ from{opacity:0} to{opacity:1} }
+  .lp-modal{
+    position:relative; width:100%; max-width:440px; max-height:86vh;
+    background: var(--card); border:1px solid var(--border);
+    border-radius:18px; overflow:hidden;
+    display:flex; flex-direction:column;
+    box-shadow: 0 20px 60px rgba(0,0,0,.45);
+  }
+  .lp-head{ display:flex; align-items:center; gap:10px; padding:14px 48px 12px 16px; border-bottom:1px solid var(--border-soft); }
+  .lp-head .avatar{ width:36px; height:36px; border-radius:10px; font-size:14px; }
+  .lp-head-t{ min-width:0; }
+  .lp-head-t b{ display:block; font-size:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .lp-head-t span{ font-size:11.5px; color: var(--text-faint); }
+  .lp-close{
+    position:absolute; top:10px; right:10px;
+    width:32px; height:32px; border-radius:50%;
+    background: var(--bg-soft); border:1px solid var(--border); color: var(--text);
+    cursor:pointer; font-size:15px; line-height:1;
+  }
+  .lp-close:hover{ border-color: var(--green); color: var(--green); }
+  .lp-body{ overflow-y:auto; padding:14px 16px; display:flex; flex-direction:column; gap:12px; }
+  .lp-img{ width:100%; max-height:240px; object-fit:cover; border-radius:12px; border:1px solid var(--border-soft); }
+  .lp-text{ font-size:14px; line-height:1.5; white-space:pre-wrap; word-break:break-word; }
+  .lp-text.empty{ color: var(--text-faint); font-style:italic; }
+  .lp-meta{ display:flex; gap:14px; font-size:12px; color: var(--text-muted); font-family:'JetBrains Mono',monospace; }
+  .lp-foot{ padding:12px 16px 16px; border-top:1px solid var(--border-soft); }
+  .lp-open{
+    display:block; text-align:center; text-decoration:none;
+    background: var(--green); color:#06140a; font-weight:700; font-size:14px;
+    padding:11px 14px; border-radius:12px;
+  }
+  .lp-open:hover{ opacity:.9; }
+
   footer{ margin-top: 56px; }
   .foot-line{ border:none; border-top:1px solid var(--border-soft); }
   .foot-copy{
@@ -425,7 +478,7 @@
   }
 
   @media (max-width: 380px){
-    .flip-card{ height: 372px; }
+    .flip-card{ height: 408px; }
   }
 </style>
 </head>
@@ -465,6 +518,10 @@
     <p class="foot-copy">Все права принадлежат © Ctotut</p>
   </footer>
 
+</div>
+
+<div class="lp-overlay" id="lpOverlay" aria-hidden="true">
+  <div class="lp-modal" role="dialog" aria-modal="true" id="lpModal"></div>
 </div>
 
 <script>
@@ -536,26 +593,60 @@ function moscowMonthInfo(nowMs){
   };
 }
 
-function computePeriodStats(postTimesIso, nowMs){
-  const times = (postTimesIso || []).map(t => new Date(t).getTime()).filter(t => !isNaN(t));
+function fmtNum(n){
+  if(n === null || n === undefined || isNaN(n)) return '—';
+  if(n >= 1e6) return (n / 1e6).toFixed(1).replace(/\.0$/, '') + 'M';
+  if(n >= 1e4) return Math.round(n / 1000) + 'K';
+  if(n >= 1e3) return (n / 1e3).toFixed(1).replace(/\.0$/, '') + 'K';
+  return String(Math.round(n));
+}
+
+// Посты канала: [{t: время, v: просмотры|null}]. Старый tgstats.json без
+// просмотров тоже работает (просмотры покажутся как «—»).
+function getPosts(ch){
+  if(Array.isArray(ch.posts)) return ch.posts;
+  return (ch.post_times || []).map(t => ({ t, v: null }));
+}
+
+function periodBlock(list, perDayDiv, extra){
+  const count = list.length;
+  const withViews = list.filter(p => typeof p.v === 'number');
+  const views = withViews.length ? withViews.reduce((a, p) => a + p.v, 0) : null;
+  const avg = withViews.length ? views / withViews.length : null;
+  return Object.assign({ count, views, avg, perDay: extra.fmt(count / perDayDiv) }, extra.add || {});
+}
+
+function computePeriodStats(ch, nowMs){
+  const posts = getPosts(ch)
+    .map(p => ({ ms: new Date(p.t).getTime(), v: p.v }))
+    .filter(p => !isNaN(p.ms));
   const now = (nowMs === undefined) ? Date.now() : nowMs;
   const msDay = 86400000, msWeek = 7 * msDay;
   const mi = moscowMonthInfo(now);
 
-  const cMonth = times.filter(t => t >= mi.startMs).length;
-  const cWeek  = times.filter(t => t >= now - msWeek).length;
-  const cDay   = times.filter(t => t >= now - msDay).length;
+  const lMonth = posts.filter(p => p.ms >= mi.startMs);
+  const lWeek  = posts.filter(p => p.ms >= now - msWeek);
+  const lDay   = posts.filter(p => p.ms >= now - msDay);
 
+  const cMonth = lMonth.length;
   const pct = Math.min(100, Math.round((cMonth / MONTHLY_QUOTA) * 100));
   const done = cMonth >= MONTHLY_QUOTA;
 
   return {
-    month: { count: cMonth, perDay: (cMonth / mi.dayOfMonth).toFixed(1), label: mi.label },
-    week:  { count: cWeek,  perDay: (cWeek / 7).toFixed(1) },
-    day:   { count: cDay,   perDay: (cDay / 24).toFixed(2) },
+    month: periodBlock(lMonth, mi.dayOfMonth, { fmt: x => x.toFixed(1), add: { label: mi.label } }),
+    week:  periodBlock(lWeek, 7, { fmt: x => x.toFixed(1) }),
+    day:   periodBlock(lDay, 24, { fmt: x => x.toFixed(2) }),
     pct, done,
     need: MONTHLY_QUOTA - cMonth,
   };
+}
+
+function viewsCells(p, perLabel){
+  return `
+              <div class="p-stat"><div class="p-stat-val">${p.count}</div><div class="p-stat-lbl">постов</div></div>
+              <div class="p-stat"><div class="p-stat-val">${p.perDay}</div><div class="p-stat-lbl">${perLabel}</div></div>
+              <div class="p-stat"><div class="p-stat-val${p.views === null ? ' na' : ''}">${fmtNum(p.views)}</div><div class="p-stat-lbl">просмотров</div></div>
+              <div class="p-stat"><div class="p-stat-val${p.avg === null ? ' na' : ''}">${fmtNum(p.avg)}</div><div class="p-stat-lbl">просм. / пост</div></div>`;
 }
 
 /* ---- Build card (data is already known — no loading state needed) ---- */
@@ -573,7 +664,7 @@ function buildCard(ch){
   const statusText = ch.ok ? 'Данные актуальны' : 'Нет данных';
   const statusClass = ch.ok ? '' : ' err';
 
-  const ps = computePeriodStats(ch.post_times);
+  const ps = computePeriodStats(ch);
 
   const quotaClass = ch.ok ? (ps.done ? 'done' : 'fail') : 'loading-q';
   const quotaIcon  = ch.ok ? (ps.done ? '✅' : '❌') : '⏳';
@@ -608,6 +699,7 @@ function buildCard(ch){
               <div class="metric-label">последний пост</div>
             </div>
           </div>
+          <button class="lp-btn" type="button" onclick="openLastPost('${username}')">📝 Последний пост</button>
           <div class="card-footer">
             <span class="status${statusClass}" id="status-${username}">${statusText}</span>
             <a class="open-link" href="https://t.me/${username}" target="_blank" rel="noopener" tabindex="-1">Открыть ↗</a>
@@ -632,9 +724,7 @@ function buildCard(ch){
 
           <div class="period-content active" id="tab-${username}-month">
             <div class="quota-sub" style="margin-bottom:8px;">${ps.month.label} (МСК)</div>
-            <div class="period-stats">
-              <div class="p-stat"><div class="p-stat-val">${ps.month.count}</div><div class="p-stat-lbl">постов</div></div>
-              <div class="p-stat"><div class="p-stat-val">${ps.month.perDay}</div><div class="p-stat-lbl">постов/день</div></div>
+            <div class="period-stats">${viewsCells(ps.month, 'постов/день')}
             </div>
             <div class="quota-badge ${quotaClass}" style="margin-top:10px;">
               <span class="quota-icon">${quotaIcon}</span>
@@ -649,16 +739,12 @@ function buildCard(ch){
           </div>
 
           <div class="period-content" id="tab-${username}-week">
-            <div class="period-stats">
-              <div class="p-stat"><div class="p-stat-val">${ps.week.count}</div><div class="p-stat-lbl">постов</div></div>
-              <div class="p-stat"><div class="p-stat-val">${ps.week.perDay}</div><div class="p-stat-lbl">постов/день</div></div>
+            <div class="period-stats">${viewsCells(ps.week, 'постов/день')}
             </div>
           </div>
 
           <div class="period-content" id="tab-${username}-day">
-            <div class="period-stats">
-              <div class="p-stat"><div class="p-stat-val">${ps.day.count}</div><div class="p-stat-lbl">постов</div></div>
-              <div class="p-stat"><div class="p-stat-val">${ps.day.perDay}</div><div class="p-stat-lbl">постов/час</div></div>
+            <div class="period-stats">${viewsCells(ps.day, 'постов/час')}
             </div>
           </div>
         </div>
@@ -675,7 +761,10 @@ function buildGroupsUI(channels){
   root.innerHTML = '';
 
   GROUPS.forEach(g=>{
-    const groupChannels = channels.filter(c => c.group === g.key);
+    // от больших каналов к меньшим (без данных — в конец)
+    const groupChannels = channels
+      .filter(c => c.group === g.key)
+      .sort((a, b) => (b.subs ?? -1) - (a.subs ?? -1));
     if(!groupChannels.length) return;
     const isSingle = groupChannels.length <= 1;
 
@@ -803,6 +892,61 @@ function scrollToCard(track, card){
   track.scrollBy({ left: offset, behavior: 'smooth' });
 }
 
+/* ---- Окошко «Последний пост» ---- */
+let CHANNELS = {};
+
+function openLastPost(username){
+  const ch = CHANNELS[username];
+  if(!ch) return;
+  const lp = ch.last_post || (ch.last_post_date ? { date: ch.last_post_date } : null);
+  const link = (lp && lp.link) || ('https://t.me/' + username);
+
+  const avatar = ch.avatar
+    ? `<img class="avatar" src="${ch.avatar}" alt="">`
+    : `<div class="avatar">${username[0].toUpperCase()}</div>`;
+
+  let body;
+  if(!lp){
+    body = '<div class="lp-text empty">Постов пока нет</div>';
+  } else {
+    const dateStr = lp.date
+      ? new Date(lp.date).toLocaleString('ru-RU', { day:'numeric', month:'long', hour:'2-digit', minute:'2-digit' })
+      : '';
+    const img = lp.image ? `<img class="lp-img" src="${escapeHtml(lp.image)}" alt="" loading="lazy">` : '';
+    const txt = lp.text
+      ? `<div class="lp-text">${escapeHtml(lp.text)}</div>`
+      : `<div class="lp-text empty">${lp.image ? 'Пост без текста' : 'Текст появится после следующего обновления данных'}</div>`;
+    const views = (typeof lp.views === 'number') ? `<span>👁 ${fmtNum(lp.views)}</span>` : '';
+    body = `${img}${txt}<div class="lp-meta"><span>🕒 ${dateStr} · ${timeAgo(lp.date)}</span>${views}</div>`;
+  }
+
+  document.getElementById('lpModal').innerHTML = `
+    <div class="lp-head">
+      ${avatar}
+      <div class="lp-head-t"><b>${escapeHtml(ch.title || ('@' + username))}</b><span>Последний пост · @${username}</span></div>
+    </div>
+    <button class="lp-close" type="button" aria-label="Закрыть" onclick="closeLastPost()">✕</button>
+    <div class="lp-body">${body}</div>
+    <div class="lp-foot"><a class="lp-open" href="${escapeHtml(link)}" target="_blank" rel="noopener">Открыть в Telegram ↗</a></div>
+  `;
+  const ov = document.getElementById('lpOverlay');
+  ov.classList.add('open');
+  ov.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLastPost(){
+  const ov = document.getElementById('lpOverlay');
+  ov.classList.remove('open');
+  ov.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('lpOverlay').addEventListener('click', e => {
+  if(e.target.id === 'lpOverlay') closeLastPost();
+});
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLastPost(); });
+
 /* ---- Card flip (front <-> detailed stats) ---- */
 function flipCard(username){
   const inner = document.getElementById('flip-inner-' + username);
@@ -897,6 +1041,8 @@ function loadStats(bust){
 
 function renderAll(data){
   const channels = data.channels || [];
+  CHANNELS = {};
+  channels.forEach(c => { CHANNELS[c.username] = c; });
 
   document.getElementById('totalChannels').textContent = channels.length;
   document.getElementById('totalSubs').textContent =
