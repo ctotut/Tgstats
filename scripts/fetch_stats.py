@@ -30,6 +30,7 @@ STAT_CHANNELS = [
     {"username": "IdentityV_Official",     "group": "donatov"},
     {"username": "BloodStrike_OfficialRu", "group": "donatov"},
     {"username": "RobloxRu_Official",      "group": "donatov"},
+    {"username": "marvel_rivals_oficcial", "group": "donatov"},
     {"username": "RustMobileInfo",         "group": "vavinews"},
     {"username": "valorantmobile",         "group": "vavinews"},
     {"username": "deltaforce_ru",          "group": "vavinews"},
