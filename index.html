@@ -156,8 +156,10 @@
   .carousel-track{
     display:flex; gap:14px;
     overflow-x:auto;
-    scroll-snap-type: x mandatory;
-    padding: 4px 40px 10px;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    padding: 4px 16px 10px;
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
@@ -176,6 +178,7 @@
     transition: border-color .15s ease, color .15s ease, opacity .15s ease;
   }
   .car-nav:hover{ border-color: var(--green); color: var(--green); }
+  .car-nav{ display:none !important; }
   .car-nav.prev{ left:0; }
   .car-nav.next{ right:0; }
   .car-nav:disabled{ opacity:.35; cursor:default; }
@@ -248,10 +251,12 @@
 
   /* Peek styling lives on the .card itself (not on the flip faces), so it
      never fights with the flip-inner's own rotateY transform. */
+  /* Соседние карточки не затемняем и не блокируем: листаешь пальцем сам,
+     нажимать можно на любую видимую карточку */
   .carousel-track > .card.inactive{
-    opacity:.42;
-    transform: scale(.94);
-    pointer-events:none;
+    opacity:1;
+    transform:none;
+    pointer-events:auto;
   }
   .carousel-wrap.single .card,
   .carousel-wrap.row-mode .card{ opacity:1 !important; transform:none !important; pointer-events:auto !important; }
@@ -927,9 +932,12 @@ function initCarousels(){
     }
 
     function applyMode(){
-      const requiredWidth = cards.length * CARD_ROW_WIDTH + (cards.length - 1) * CARD_GAP;
+      // Карусель (со стрелками) — только на узком экране, где не помещаются
+      // даже две карточки рядом. Иначе обычная сетка: все карточки видны и
+      // кликабельны сразу, лишние переносятся на следующий ряд.
+      const minRowWidth = Math.min(cards.length, 2) * CARD_ROW_WIDTH + (Math.min(cards.length, 2) - 1) * CARD_GAP;
       const availableWidth = wrap.clientWidth - 8;
-      const fits = availableWidth >= requiredWidth;
+      const fits = availableWidth >= minRowWidth;
       const wasRowMode = wrap.classList.contains('row-mode');
       wrap.classList.toggle('row-mode', fits);
       if(fits){
