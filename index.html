@@ -1180,9 +1180,32 @@ function setTheme(isLight){
   }
 }
 
+// Внутри Telegram (Mini App) platform != 'unknown'. На обычном сайте SDK
+// тоже создаёт window.Telegram.WebApp и всегда отдаёт colorScheme='light',
+// поэтому раньше сайт открывался светлым независимо от системной темы.
+function inTelegram(){
+  const tg = window.Telegram && window.Telegram.WebApp;
+  return !!(tg && tg.platform && tg.platform !== 'unknown');
+}
+
+let userPickedTheme = false;
+
 function initTheme(){
   const btn = document.getElementById('themeToggle');
+  const mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: light)') : null;
+
+  // Стартуем с темы системы (в Telegram её потом выставит initTelegramWebApp)
+  if(mq && !inTelegram()) setTheme(mq.matches);
+
+  // Если пользователь сам не переключал — следим за сменой системной темы
+  if(mq){
+    const onChange = e => { if(!userPickedTheme && !inTelegram()) setTheme(e.matches); };
+    if(mq.addEventListener) mq.addEventListener('change', onChange);
+    else if(mq.addListener) mq.addListener(onChange);
+  }
+
   btn.addEventListener('click', ()=>{
+    userPickedTheme = true;
     const isLight = document.documentElement.getAttribute('data-theme') === 'light';
     setTheme(!isLight);
   });
@@ -1191,7 +1214,7 @@ function initTheme(){
 /* ---- Telegram Mini App integration ---- */
 function initTelegramWebApp(){
   const tg = window.Telegram && window.Telegram.WebApp;
-  if(!tg) return;
+  if(!tg || !inTelegram()) return;
 
   tg.ready();
   tg.expand();
@@ -1268,7 +1291,7 @@ refreshBtn.addEventListener('click', ()=>{
   });
 });
 
-loadStats(false);
+loadStats(true);   // сразу свежие данные, без кэша браузера
 setInterval(()=> loadStats(true), 5 * 60 * 1000);
 </script>
 </body>
