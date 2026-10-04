@@ -1,19 +1,19 @@
 {
-  "updated_at": "2026-10-04T20:24:52.487868+00:00",
-  "total": 247410,
+  "updated_at": "2026-10-04T23:35:47.591953+00:00",
+  "total": 247311,
   "channels": [
     {
       "username": "IdentityV_Official",
       "group": "donatov",
       "title": "Identity V | Новости",
-      "avatar": "https://cdn4.telesco.pe/file/hQlnGxY87YzOD_yxvtYy4CmwpWZiQ9Ifk4pM4ESli63OYWFEQec7y3warX5Vv5f10tA31mUD8_4mZKVBT6rPBQOQ6ULM8z7frZ0aVnUAdYXZ_IO_MsbFhniXs1nK-vXclxLvpWOisi_zFIjFFF5SiiRbfQ1E5hliQ4XFVpRWF73fKc3WKcvbjxEzBovYhQOlz7rpxXD0bE0l-a3XOcqmpt583HZJYYD_E-cnzL3bKLuN39xOThW4EWYCzfNd4U4euAuoMkwPOF0dbQTvY7lAcMk-5YAOHLS8ki_tJO0pPdTfW3Q6AZ1eO5OiwIOgTOB69z7cit3-ty7_4aXtBB2AHg.jpg",
+      "avatar": "https://cdn4.telesco.pe/file/u7YHOiohxOG4Vdvb8ZENn9Sp_t8IOWp_uPbfXnMhdM2hsDuKG_qp94cBwVJh0ZNYs9cNcmZ62Tk_RIMET0q7CfUgxYopPMnD4MGK5QwXRtRacoh8Jrm1ovklVX2Lg-7XxpOa0nHHh7_eldvk8LabxvzzJweVwUzvX-q8IVqguL59BqFJZSFi78LxcF75IG4Q-2k_as6YMsd2rVlNEM585OUOrlnN9fj5YiigPToB65aQODuDqKsnoQaMx9AA_dtJX6podJ67ndy-FcQuicW6r2jqKjizJPrAsyfZmZXTa-0d30InXqkM3KGj_thToNAM7R6sPN0R_SneuqiVp4207w.jpg",
       "subs": 12900,
       "subs_raw": "12.9K",
       "ok": true,
       "last_post_date": "2026-10-04T16:33:41+00:00",
       "last_post": {
         "date": "2026-10-04T16:33:41+00:00",
-        "views": 570,
+        "views": 634,
         "text": "🔗 Официальный арт\n\nХомячья операция по катанию снежков! 🐹\n\nПока Кай спит, мы катаем снежки!\n\n💬 Наш Телеграм Канал |  💙 Наша страница в ВК \n\n⚜️ Донат в Identity V",
         "image": "https://cdn4.telesco.pe/file/XooVfE33uBy-Hkpui-pRB7s0GifeQaViv3FkPTZnG_0CvSJddnYjAqEcgJiD4lHU35Fm_JyQKYiwIS8aBzKjJ7A-7O4yds-PSMhL2baZlTyIG2R9_QUxntazU37y0iomRrQwyKWEiBfIPZ93rutNGNWXOWBxZA2WHXjAWVD2P69UHjpbBs6tgJMj2tk-HxR2HMBIZZYZ22cuLJmU7kttdsxO6AwUEmpAfXEun4HYXSaClra78KxDkrKy7AAo1ZuluoGh7e1EkKkjKYJfiLftRfC2gp1erQIC-Qnz6-HiXUeQ6gYOJU1kb-c-dH6uKaGR2QLOQJnJymwoGJQ3UeU4sQ.jpg",
         "link": "https://t.me/IdentityV_Official/1479"
@@ -181,7 +181,7 @@
         },
         {
           "t": "2026-09-14T11:00:09+00:00",
-          "v": 2050
+          "v": 2060
         },
         {
           "t": "2026-09-15T14:44:05+00:00",
@@ -309,7 +309,7 @@
         },
         {
           "t": "2026-09-27T14:56:40+00:00",
-          "v": 1630
+          "v": 1640
         },
         {
           "t": "2026-09-27T15:02:57+00:00",
@@ -317,11 +317,11 @@
         },
         {
           "t": "2026-09-28T01:49:39+00:00",
-          "v": 1820
+          "v": 1840
         },
         {
           "t": "2026-09-28T11:28:07+00:00",
-          "v": 1560
+          "v": 1570
         },
         {
           "t": "2026-09-28T14:13:46+00:00",
@@ -329,7 +329,7 @@
         },
         {
           "t": "2026-09-30T13:56:43+00:00",
-          "v": 1730
+          "v": 1740
         },
         {
           "t": "2026-09-30T15:00:26+00:00",
@@ -337,27 +337,27 @@
         },
         {
           "t": "2026-10-01T08:54:36+00:00",
-          "v": 1570
+          "v": 1580
         },
         {
           "t": "2026-10-02T11:19:26+00:00",
-          "v": 1280
+          "v": 1290
         },
         {
           "t": "2026-10-03T14:39:25+00:00",
-          "v": 1130
+          "v": 1150
         },
         {
           "t": "2026-10-03T18:26:26+00:00",
-          "v": 995
+          "v": 1020
         },
         {
           "t": "2026-10-04T16:31:38+00:00",
-          "v": 574
+          "v": 636
         },
         {
           "t": "2026-10-04T16:33:41+00:00",
-          "v": 570
+          "v": 634
         }
       ],
       "post_times": [
@@ -459,7 +459,7 @@
       "last_post_date": "2026-10-04T15:40:22+00:00",
       "last_post": {
         "date": "2026-10-04T15:40:22+00:00",
-        "views": 417,
+        "views": 466,
         "text": "🎯 ULTRA MP7 — JadeTempest возвращается!\n\nС 5 по 11 октября забирайте легендарный скин за от 9 Gold.\n\n🔒 Гарантированно получите его за 8 попыток.\n😇 Дешёвая голда на Donatov.net\n\n💙 Наш ВК • 💬 Наш Телеграм Канал",
         "image": "https://cdn4.telesco.pe/file/NWKIJROzhwzAQ4Erxd3Uz2nYnKMjODoSr3WY1HeuM7BdvWeIjaUPrQQJookkeaxuINZBUau9wDXMXXM5qn8wZNHWiFhuWeipGFHzOgbGAeg8V-VtURcCfz6rEtt0f51ihFb1PLzOhnWoooSWamhy0UaN94Gs2SBFDbBIunlaVrxGDMa3epPSjZAGOMj5iBiNCTgHn0xsRRmpGqMe110v121Z99q_iAkcZ_EgmSeylcS_MIpfTW5rq3HUL3uhxVQFM4kDCUPHg9uDEf566NQoSCA9O9XTcJQ38kbwllldOhoeN2M5UzfW_QYwfq-V82SJGR9X0EGj2D1vYSH9CdCRkg.jpg",
         "link": "https://t.me/BloodStrike_OfficialRu/1062"
@@ -511,7 +511,7 @@
         },
         {
           "t": "2026-09-07T19:19:08+00:00",
-          "v": 1830
+          "v": 1840
         },
         {
           "t": "2026-09-08T06:18:26+00:00",
@@ -535,7 +535,7 @@
         },
         {
           "t": "2026-09-11T06:49:46+00:00",
-          "v": 3830
+          "v": 3840
         },
         {
           "t": "2026-09-11T15:41:40+00:00",
@@ -543,7 +543,7 @@
         },
         {
           "t": "2026-09-11T18:14:08+00:00",
-          "v": 9860
+          "v": 9870
         },
         {
           "t": "2026-09-12T06:00:06+00:00",
@@ -587,7 +587,7 @@
         },
         {
           "t": "2026-09-18T14:01:57+00:00",
-          "v": 1960
+          "v": 1970
         },
         {
           "t": "2026-09-20T07:23:56+00:00",
@@ -611,7 +611,7 @@
         },
         {
           "t": "2026-09-22T09:51:11+00:00",
-          "v": 1670
+          "v": 1680
         },
         {
           "t": "2026-09-23T07:36:13+00:00",
@@ -623,11 +623,11 @@
         },
         {
           "t": "2026-09-24T17:05:35+00:00",
-          "v": 1960
+          "v": 1970
         },
         {
           "t": "2026-09-26T10:45:10+00:00",
-          "v": 1890
+          "v": 1900
         },
         {
           "t": "2026-09-27T18:21:19+00:00",
@@ -635,35 +635,35 @@
         },
         {
           "t": "2026-09-28T16:09:48+00:00",
-          "v": 1520
+          "v": 1530
         },
         {
           "t": "2026-10-01T08:22:44+00:00",
-          "v": 1100
+          "v": 1110
         },
         {
           "t": "2026-10-01T08:53:53+00:00",
-          "v": 1150
+          "v": 1160
         },
         {
           "t": "2026-10-01T17:50:32+00:00",
-          "v": 1050
+          "v": 1060
         },
         {
           "t": "2026-10-02T19:14:07+00:00",
-          "v": 972
+          "v": 983
         },
         {
           "t": "2026-10-03T14:46:08+00:00",
-          "v": 848
+          "v": 862
         },
         {
           "t": "2026-10-04T06:06:13+00:00",
-          "v": 687
+          "v": 715
         },
         {
           "t": "2026-10-04T15:40:22+00:00",
-          "v": 417
+          "v": 466
         }
       ],
       "post_times": [
@@ -730,7 +730,7 @@
       "last_post_date": "2026-10-04T15:26:25+00:00",
       "last_post": {
         "date": "2026-10-04T15:26:25+00:00",
-        "views": 1490,
+        "views": 1610,
         "text": "❔ Весь мир - обман\n\n#meme\n\n😇 А купить Robux по самой низкой цене можно ТУТ\n\n💬 Roblox новости | 💙 Наш ВК",
         "image": "https://cdn4.telesco.pe/file/L8V5PtV_ZXnYWZ1Hkg-tWTeA5C9HdISeGANIz464vlcnZAmaaYG5KhTytFVkCGwtMz2VgCFgQZlqsi1xWk0HynuK-lFUZ-qgytX-ct2lYDfBUeoePitw-OYi-lU23s92AsQfY6wsUpcguKArvYuXPrp0xnuUQehvukwIop6s3azKLnz-N3tnsH1lp_NLL3qR2WOq5UUgmyxq95czy7EH911vVdo0L3iHmc07qSnEFdGPOE-bH5aEBClJBNTs8IWLnNH1JrIYZPDTnLHKqE09OJzSNFTxWUJ4LvDpEbWaP0L4nO5bkRQxYbBPMz6rx7_k9ZQihmIPPcc5_egpNvCgaA",
         "link": "https://t.me/RobloxRu_Official/900"
@@ -782,7 +782,7 @@
         },
         {
           "t": "2026-09-07T19:25:38+00:00",
-          "v": 9070
+          "v": 9080
         },
         {
           "t": "2026-09-08T05:05:54+00:00",
@@ -794,7 +794,7 @@
         },
         {
           "t": "2026-09-10T18:27:00+00:00",
-          "v": 8430
+          "v": 8440
         },
         {
           "t": "2026-09-11T13:38:10+00:00",
@@ -830,75 +830,75 @@
         },
         {
           "t": "2026-09-16T18:28:20+00:00",
-          "v": 7730
+          "v": 7740
         },
         {
           "t": "2026-09-17T06:45:59+00:00",
-          "v": 7850
+          "v": 7860
         },
         {
           "t": "2026-09-18T13:01:36+00:00",
-          "v": 7330
+          "v": 7350
         },
         {
           "t": "2026-09-19T10:21:28+00:00",
-          "v": 7920
+          "v": 7940
         },
         {
           "t": "2026-09-19T13:11:39+00:00",
-          "v": 8810
+          "v": 8820
         },
         {
           "t": "2026-09-20T18:09:26+00:00",
-          "v": 8840
+          "v": 8860
         },
         {
           "t": "2026-09-22T08:44:01+00:00",
-          "v": 8040
+          "v": 8050
         },
         {
           "t": "2026-09-23T18:46:23+00:00",
-          "v": 7690
+          "v": 7710
         },
         {
           "t": "2026-09-26T10:32:55+00:00",
-          "v": 6930
+          "v": 6950
         },
         {
           "t": "2026-09-27T17:35:53+00:00",
-          "v": 6520
+          "v": 6530
         },
         {
           "t": "2026-09-28T21:17:02+00:00",
-          "v": 6280
+          "v": 6300
         },
         {
           "t": "2026-09-29T21:24:53+00:00",
-          "v": 5840
+          "v": 5860
         },
         {
           "t": "2026-10-01T15:37:09+00:00",
-          "v": 4010
+          "v": 4040
         },
         {
           "t": "2026-10-02T09:08:23+00:00",
-          "v": 3590
+          "v": 3610
         },
         {
           "t": "2026-10-03T21:33:16+00:00",
-          "v": 2860
+          "v": 2900
         },
         {
           "t": "2026-10-04T10:12:49+00:00",
-          "v": 2230
+          "v": 2290
         },
         {
           "t": "2026-10-04T10:23:11+00:00",
-          "v": 2190
+          "v": 2250
         },
         {
           "t": "2026-10-04T15:26:25+00:00",
-          "v": 1490
+          "v": 1610
         }
       ],
       "post_times": [
@@ -956,7 +956,7 @@
       "last_post_date": "2026-10-04T15:07:43+00:00",
       "last_post": {
         "date": "2026-10-04T15:07:43+00:00",
-        "views": 1350,
+        "views": 1460,
         "text": "❗️ ВСЁ, ЧЕГО МЫ МОГЛИ БЫ ЖДАТЬ В СЕЗОНЕ 10.5\n\n- Потенциальный легендарный костюм Вечной бури (подсказал Дэнни Ку)\n- Костюмы на Хэллоуин 2026\n- Игровой режим «Мстители: Война бесконечности»\n\n🎮 Marvel Rivals Новости | Наш чат для обсуждений | Дать буст\n\n💰 Купить донат и Lattice в Marvel Rivals\n по UID можно тут - 📈  ТЫК",
         "image": "https://cdn4.telesco.pe/file/L8WUyy_9looqlI95g3AKlopIhztAo1ZbCJVNiTZKLh2-WWGdw5H50Ip0c3e0PzGP21007tee1SyTNtg1slbM4U7uFfSD7wAQQIzF8Fg9PuUntIJdF1jmSwSj6j2ODRCotFutJmRoMEQTuMkE4WAnDFRwf45Z2BNFSSoYhMrHNlm9QRe61YqSb5_CGx3OnZDV1ft2eQqGg82OE0BTCxfWSiDCBU6jT6gwZTTNbI6_ybONnJUAinoSL7fcT9Lgf3InDGqjzjQ-ulnVkBkxd8tVMrgJODAtg4ASg8pJ19rV8pen1IFCMbsndANYKA8S-5vTzl7VjvDdgDS-sVq6H31wBg.jpg",
         "link": "https://t.me/marvel_rivals_oficcial/4272"
@@ -1100,7 +1100,7 @@
         },
         {
           "t": "2026-09-09T21:04:28+00:00",
-          "v": 2560
+          "v": 2570
         },
         {
           "t": "2026-09-09T21:04:54+00:00",
@@ -1152,7 +1152,7 @@
         },
         {
           "t": "2026-09-13T15:32:45+00:00",
-          "v": 3440
+          "v": 3450
         },
         {
           "t": "2026-09-14T15:21:14+00:00",
@@ -1184,7 +1184,7 @@
         },
         {
           "t": "2026-09-16T15:33:18+00:00",
-          "v": 4040
+          "v": 4050
         },
         {
           "t": "2026-09-16T16:13:46+00:00",
@@ -1204,7 +1204,7 @@
         },
         {
           "t": "2026-09-20T22:45:02+00:00",
-          "v": 3200
+          "v": 3210
         },
         {
           "t": "2026-09-21T10:05:37+00:00",
@@ -1232,7 +1232,7 @@
         },
         {
           "t": "2026-09-22T17:04:54+00:00",
-          "v": 3220
+          "v": 3230
         },
         {
           "t": "2026-09-22T22:16:20+00:00",
@@ -1248,59 +1248,59 @@
         },
         {
           "t": "2026-09-23T15:07:00+00:00",
-          "v": 3930
+          "v": 3940
         },
         {
           "t": "2026-09-23T16:02:32+00:00",
-          "v": 4070
+          "v": 4080
         },
         {
           "t": "2026-09-24T10:07:49+00:00",
-          "v": 4050
+          "v": 4060
         },
         {
           "t": "2026-09-25T20:57:18+00:00",
-          "v": 3500
+          "v": 3540
         },
         {
           "t": "2026-09-27T14:52:26+00:00",
-          "v": 2880
-        },
-        {
-          "t": "2026-09-27T15:04:00+00:00",
-          "v": 2920
-        },
-        {
-          "t": "2026-09-27T15:59:29+00:00",
           "v": 2890
         },
         {
-          "t": "2026-09-28T23:16:23+00:00",
+          "t": "2026-09-27T15:04:00+00:00",
+          "v": 2930
+        },
+        {
+          "t": "2026-09-27T15:59:29+00:00",
           "v": 2910
         },
         {
+          "t": "2026-09-28T23:16:23+00:00",
+          "v": 2920
+        },
+        {
           "t": "2026-09-29T15:03:07+00:00",
-          "v": 2980
+          "v": 3000
         },
         {
           "t": "2026-09-29T16:40:29+00:00",
-          "v": 3240
+          "v": 3260
         },
         {
           "t": "2026-09-30T15:19:47+00:00",
-          "v": 3040
+          "v": 3070
         },
         {
           "t": "2026-10-02T07:00:26+00:00",
-          "v": 2230
+          "v": 2250
         },
         {
           "t": "2026-10-03T18:15:25+00:00",
-          "v": 1960
+          "v": 2000
         },
         {
           "t": "2026-10-04T15:07:43+00:00",
-          "v": 1350
+          "v": 1460
         }
       ],
       "post_times": [
@@ -1396,13 +1396,13 @@
       "group": "vavinews",
       "title": "Rust Mobile",
       "avatar": "https://cdn4.telesco.pe/file/Di_lV4OUcEN5vZQcjosZIIvc4KYI46NLXCtGXuTreztiU6NRdtQWW47P4t7QgzXbhj1RM5IbUDvrTO-ITCxNs_dEN7KF9IR7RNEmMadxqO37e107aGp1vzEwvQRYC28BpplIGS6KtKgazDo61G_HqbX88ZnyMlG3ZcnxfjwPeJGVqgj_p8deVRGDPhScPN7aZg-xAUFjR3x-T8_gK0CsBTqdjeRJCZ3kCzh5LLPAVD_qmfNh4Wvwc5hG22eDr9bfShfRZnaMqOlboKgXCga8H3OU8pxJcWIZC8UqG6N0zCYvQail2NjmvjT4AoKVmNhHPOrK5jOToIQPlpPctoBiYw.jpg",
-      "subs": 69600,
-      "subs_raw": "69.6K",
+      "subs": 69500,
+      "subs_raw": "69.5K",
       "ok": true,
       "last_post_date": "2026-10-03T16:26:59+00:00",
       "last_post": {
         "date": "2026-10-03T16:26:59+00:00",
-        "views": 7730,
+        "views": 7870,
         "text": "🤬 Сервера закрыты, а играть то хочется..\n\nПрошло уже несколько дней с окончания 2-го бета-теста RUST MOBILE\n\n❓ Чем же вы теперь занимаетесь?\nНачали играть в китайскую версию или решили ждать следующего теста/релиза? А может, решили заняться учёбой?\n\nСтавьте реакции и пишите в комментариях свои варианты!\n\n🤬 – жду следующий тест/релиз \n👍 – играю в китайскую версию\n\n🔎 TEAM UP • 💙 ВК • 💬 ТГК • 💬 ЧАТ",
         "image": "https://cdn4.telesco.pe/file/PaM2gKjdmnPEbnI636IBPpBPzhw3BhuFo8wXlrdX-IATMOq8xLH-DNJDGYYB4OTQvC3_oD-TRtPm7HMSfx1WabP94FSwEtIw8vVO3Um70fswxU412MvkmwRjVypC2kj7wLkj7_otXQhx3hZEboeYC53vobvziFOu2kmwXJgGs_MTafGlCyh412tb7VjdcF96qgrzvCE_SNltnFM5sfXQh8d3rOn8rv3tP9goi7PZZFL3gSD25f8M7rF2zwKcFwMzE0fHqJjUb2k9zBahzCnuy6m20D4SbHfd4g7EBxXyyJlf4nupU4vVwOVvxlY7MFcs5_rvHf399KjYP9MmIRlfPQ.jpg",
         "link": "https://t.me/RustMobileInfo/765"
@@ -1438,7 +1438,7 @@
         },
         {
           "t": "2026-09-05T20:49:57+00:00",
-          "v": 31100
+          "v": 31200
         },
         {
           "t": "2026-09-07T16:59:22+00:00",
@@ -1446,7 +1446,7 @@
         },
         {
           "t": "2026-09-09T09:31:26+00:00",
-          "v": 31900
+          "v": 32000
         },
         {
           "t": "2026-09-09T12:41:48+00:00",
@@ -1454,11 +1454,11 @@
         },
         {
           "t": "2026-09-13T15:52:06+00:00",
-          "v": 32100
+          "v": 32200
         },
         {
           "t": "2026-09-14T16:24:42+00:00",
-          "v": 33700
+          "v": 33800
         },
         {
           "t": "2026-09-24T05:21:07+00:00",
@@ -1466,15 +1466,15 @@
         },
         {
           "t": "2026-09-28T19:54:42+00:00",
-          "v": 17600
+          "v": 17700
         },
         {
           "t": "2026-09-28T20:29:56+00:00",
-          "v": 17900
+          "v": 18000
         },
         {
           "t": "2026-10-03T16:26:59+00:00",
-          "v": 7730
+          "v": 7870
         }
       ],
       "post_times": [
@@ -1505,19 +1505,15 @@
       "subs": 539,
       "subs_raw": "539",
       "ok": true,
-      "last_post_date": "2026-10-04T16:36:05+00:00",
+      "last_post_date": "2026-10-04T22:10:57+00:00",
       "last_post": {
-        "date": "2026-10-04T16:36:05+00:00",
-        "views": 118,
-        "text": "❗️ Гоуст главный персонаж DMZ:\n\nДействие происходит ПОСЛЕ кампании\nПодземные базы с ядерным оружием \nОбеспечить оружие до прихода Севера\n Бунтующие операторы (вы) делают то же самое\n\nАвария на реакторе (из кампании) сделала районы непригодными для жизни\n\n 🌟🌟 CoD-NEWS • ❤️ ЧАТИК\n\n#MW4@CallofDutyNews_ru",
-        "image": "https://cdn4.telesco.pe/file/LSyK1RbCuS1_px_cMm3r17GY9ijZr1NDA1CVK0iKkb-aDiOVhQThW3Sn32nJr5lDbRl0usb2DJ91pPRUpTPKq56pel5OuV8Jn37KFPQIHZ_D7kjjjprkTBW40gHYoI9W7zP-3BZuxDZ-eyvv2dUEV5sgxSqC94eAGwMbvjhhJJcdYBHuXGlvDWoIytZwL7T459U7_3pEKw4AyJCEa1ER-SE-QPDEfUUUKrPjhl0NRnB2uT3W5CvIoWhzt3kRLrUCFmU7-OLL9PoySkIYhRF-dfemhaS2lg1FajGPbxxEp0WpBmAF4XuATyQ7PXc1VvMF5Dz9A6zal9HNC2Dwx3GtNA.jpg",
-        "link": "https://t.me/CallofDutyNews_ru/3638"
+        "date": "2026-10-04T22:10:57+00:00",
+        "views": 35,
+        "text": "❗️ 5 октября выйдет очередной выпуск From the Ward   🌟🌟 CoD-NEWS • ❤️ ЧАТИК  #MW4@CallofDutyNews_ru",
+        "image": null,
+        "link": "https://t.me/CallofDutyNews_ru/3639"
       },
       "posts": [
-        {
-          "t": "2026-08-30T22:18:21+00:00",
-          "v": 364
-        },
         {
           "t": "2026-08-31T16:28:07+00:00",
           "v": 336
@@ -2320,7 +2316,7 @@
         },
         {
           "t": "2026-10-02T08:09:53+00:00",
-          "v": 199
+          "v": 200
         },
         {
           "t": "2026-10-02T08:50:22+00:00",
@@ -2332,59 +2328,62 @@
         },
         {
           "t": "2026-10-02T14:38:41+00:00",
-          "v": 241
+          "v": 242
         },
         {
           "t": "2026-10-02T15:59:13+00:00",
-          "v": 201
-        },
-        {
-          "t": "2026-10-02T18:43:36+00:00",
-          "v": 217
-        },
-        {
-          "t": "2026-10-02T19:43:40+00:00",
-          "v": 196
-        },
-        {
-          "t": "2026-10-02T20:39:13+00:00",
           "v": 202
         },
         {
+          "t": "2026-10-02T18:43:36+00:00",
+          "v": 219
+        },
+        {
+          "t": "2026-10-02T19:43:40+00:00",
+          "v": 198
+        },
+        {
+          "t": "2026-10-02T20:39:13+00:00",
+          "v": 204
+        },
+        {
           "t": "2026-10-02T21:24:26+00:00",
-          "v": 201
+          "v": 203
         },
         {
           "t": "2026-10-03T16:56:03+00:00",
-          "v": 185
+          "v": 187
         },
         {
           "t": "2026-10-03T21:57:03+00:00",
-          "v": 184
+          "v": 186
         },
         {
           "t": "2026-10-03T22:00:52+00:00",
-          "v": 182
+          "v": 184
         },
         {
           "t": "2026-10-04T10:43:01+00:00",
-          "v": 149
+          "v": 158
         },
         {
           "t": "2026-10-04T10:43:54+00:00",
-          "v": 151
+          "v": 160
         },
         {
           "t": "2026-10-04T16:05:56+00:00",
-          "v": 150
+          "v": 165
         },
         {
           "t": "2026-10-04T16:36:05+00:00",
-          "v": 118
+          "v": 135
+        },
+        {
+          "t": "2026-10-04T22:10:57+00:00",
+          "v": 35
         }
       ],
       "post_times": [
-        "2026-08-30T22:18:21+00:00",
         "2026-08-31T16:28:07+00:00",
         "2026-08-31T16:28:31+00:00",
         "2026-09-01T15:52:33+00:00",
@@ -2600,7 +2599,8 @@
         "2026-10-04T10:43:01+00:00",
         "2026-10-04T10:43:54+00:00",
         "2026-10-04T16:05:56+00:00",
-        "2026-10-04T16:36:05+00:00"
+        "2026-10-04T16:36:05+00:00",
+        "2026-10-04T22:10:57+00:00"
       ]
     },
     {
@@ -2614,7 +2614,7 @@
       "last_post_date": "2026-10-03T08:09:36+00:00",
       "last_post": {
         "date": "2026-10-03T08:09:36+00:00",
-        "views": 632,
+        "views": 642,
         "text": "🤩 Valorant Mobile на Champions Shanghai 2026!\n\nСо 2 по 6 октября в Шанхае Riot вместе с Tencent проведут отдельную зону, посвящённую Valorant Mobile. Также во время турнира игроки смогут получать эксклюзивные внутриигровые награды.\n\n😭ВАЖНО: это не анонс глобального релиза, и пока нет прямого подтверждения международной беты или глобального релиза.\n\n💬 Наш Телеграм канал",
         "image": "https://cdn4.telesco.pe/file/ozWIZY8fgHuCtkJzwKr5gbpq2cTOXpRlP_-r9WMT7hj6c_zqbHRvLC5diPrRJqkbicDQKWT-wjwf6QYB4qBcgKv2lA7Yc8p1rw0HwWdQpGWSneTZ-gIZV3Xm4LF4V-_NHCaYwkDLOhwoUrqmg90iyMvsomY2vGtmlqKBxDmFQKwbB1vdnYM1WBajKNYryO3qmmfob67yVogxD5Ck0jfbc5m-OMzKcldO6vNlpErNksp38IPWpNr6GUWjiZaJ7GUwFcvdXs5c1th9PwaFS-i3Y0cMHbpDY2ZIMkBGF9FePWMEmQpaRiTR9iZM50tXFPEMXnxSVvUISe4s4tLManM1Hw.jpg",
         "link": "https://t.me/valorantmobile/2440"
@@ -2666,7 +2666,7 @@
         },
         {
           "t": "2026-09-12T06:09:30+00:00",
-          "v": 2330
+          "v": 2340
         },
         {
           "t": "2026-09-14T11:30:14+00:00",
@@ -2718,15 +2718,15 @@
         },
         {
           "t": "2026-09-28T11:49:37+00:00",
-          "v": 1330
+          "v": 1340
         },
         {
           "t": "2026-10-01T06:02:18+00:00",
-          "v": 910
+          "v": 920
         },
         {
           "t": "2026-10-03T08:09:36+00:00",
-          "v": 632
+          "v": 642
         }
       ],
       "post_times": [
@@ -2770,7 +2770,7 @@
       "last_post_date": "2026-10-04T07:30:14+00:00",
       "last_post": {
         "date": "2026-10-04T07:30:14+00:00",
-        "views": 863,
+        "views": 896,
         "text": "❗️ А помните свой самый первый сезон?\n\n❓ С какого сезона вы начали играть и какой сезон для вас был лучшим за всё время?\n\n💬 Давайте устроим небольшое путешествие по истории игры – пишите свой первый и любимый сезон в комментариях!\n\n﻿🦾 Delta News • 🤩 Купить валюту \n\n💙 ВКонтакте",
         "image": "https://cdn4.telesco.pe/file/KUY3Hj8EhW9ObhfjgWilZQ7Q8a6HYPtifBgv7kPc578R6_jfyvarzCjOm0P_65FhjA741d0QisxQlEujcu1Q6-uq9WiHvWH12lA81gneVfW4ncb-ypvB6XQctV9OtbkkgTLghWS26gvsq4RVb3WG2WMC2dcSqTgFQs3hgCqGIDqBN0hFuUllFVzuqohFtIuXMivq0hceUkec2OMhgQ8gwUYBbDX5cOAQdqt8X9nTCcSdBbIv-I1UhFVvQ36sTmyg3eqapUZr03lGwmbDTYy1R2dkv0enlS5AVETS8C5ttRsaM_XO34E1JrhqF4XgSQS814WWPdAkItuycUmItAiMzg.jpg",
         "link": "https://t.me/deltaforce_ru/1924"
@@ -2942,7 +2942,7 @@
         },
         {
           "t": "2026-09-24T14:55:23+00:00",
-          "v": 2470
+          "v": 2480
         },
         {
           "t": "2026-09-25T08:01:17+00:00",
@@ -2950,7 +2950,7 @@
         },
         {
           "t": "2026-09-26T07:48:33+00:00",
-          "v": 1770
+          "v": 1780
         },
         {
           "t": "2026-09-26T11:08:28+00:00",
@@ -2970,15 +2970,15 @@
         },
         {
           "t": "2026-09-26T12:48:18+00:00",
-          "v": 1930
+          "v": 1940
         },
         {
           "t": "2026-09-26T12:52:27+00:00",
-          "v": 2200
+          "v": 2210
         },
         {
           "t": "2026-09-26T14:23:17+00:00",
-          "v": 2300
+          "v": 2310
         },
         {
           "t": "2026-09-27T07:26:53+00:00",
@@ -2986,7 +2986,7 @@
         },
         {
           "t": "2026-09-27T09:56:34+00:00",
-          "v": 2130
+          "v": 2140
         },
         {
           "t": "2026-09-28T07:28:23+00:00",
@@ -3010,11 +3010,11 @@
         },
         {
           "t": "2026-10-01T13:48:55+00:00",
-          "v": 1490
+          "v": 1500
         },
         {
           "t": "2026-10-03T08:22:18+00:00",
-          "v": 1320
+          "v": 1330
         },
         {
           "t": "2026-10-03T10:00:20+00:00",
@@ -3022,15 +3022,15 @@
         },
         {
           "t": "2026-10-03T15:03:41+00:00",
-          "v": 1210
+          "v": 1220
         },
         {
           "t": "2026-10-04T05:34:22+00:00",
-          "v": 957
+          "v": 985
         },
         {
           "t": "2026-10-04T07:30:14+00:00",
-          "v": 863
+          "v": 896
         }
       ],
       "post_times": [
@@ -3111,7 +3111,7 @@
       "last_post_date": "2026-10-04T06:01:27+00:00",
       "last_post": {
         "date": "2026-10-04T06:01:27+00:00",
-        "views": 97,
+        "views": 101,
         "text": "🤩 Скоро выходит первый Ultimate Set серии Honor с трансформацией \"Боевая душа\"! \n\nВ комплекте идет подходящий продвинутый апгрейдируемый UZI. \nUZI имеет две формы и анимацию переключения форм!\n\n🤩 Дата выхода – 9 октября!\n\n🤩 Наш Telegram-канал",
         "image": "https://cdn4.telesco.pe/file/qWNtK-hH-Q2X1O6MovJvAYrJ4qeeiPLxcKnAHZvmx4J5BFHDuha8de3UQhFXpMtj_hw3JPChaBm1P25n-Y3D3zq1sSjGCapVa-BacM8hV90skh4pujK-zUrYwFZLdfTr2cEwLKoRJ8Ynkwcd6m0LfVLnn-luQtfhW2hSu9jhJ79hItT4FAgCGZXTG-YXLODYzwGOlixDs5h-x9x-sdaC5Iz2sxTukGx6hZ4fIwm-s_r5nsQWFkXwpT_PENhFwYMqSzz2aG-kardL06Smvzu3wwcC2B8yzribbQTXATdTzsqXVM0ttMFMfhLW9We7eOmcmvO4sZl_mNIV_q3DTxybvg",
         "link": "https://t.me/pubg_mobile_ruhub/115"
@@ -3395,27 +3395,27 @@
         },
         {
           "t": "2026-10-01T19:38:39+00:00",
-          "v": 1380
+          "v": 1390
         },
         {
           "t": "2026-10-02T10:24:58+00:00",
-          "v": 844
+          "v": 846
         },
         {
           "t": "2026-10-02T13:44:45+00:00",
-          "v": 756
+          "v": 759
         },
         {
           "t": "2026-10-03T13:31:11+00:00",
-          "v": 127
+          "v": 130
         },
         {
           "t": "2026-10-03T20:22:11+00:00",
-          "v": 111
+          "v": 114
         },
         {
           "t": "2026-10-04T06:01:27+00:00",
-          "v": 97
+          "v": 101
         }
       ],
       "post_times": [
@@ -3501,15 +3501,15 @@
       "group": "ldshop",
       "title": "Steam | RuHUB Игры, скидки и раздачи",
       "avatar": "https://cdn4.telesco.pe/file/BXaQfx-9CtIM1OfMHDXVp2zcGocspeYznostlKrPoNpcwa5S2iIYrTNYZKE0QCzfBllRUe8_PDgxoT-InHMSiQUPgQK4m8URvz6hLiTl2duBk3Fd-Wtdg2wkiLZhk27qUhjaPUO4VDp6HxHVmu1qyo-744Vft5qFrh-JAgG4F0D-j5YAwJxl6a2uWSfkm1zc-vVjwV80sIEM27YRtaSMKx2HRafi8pvViZcVIQWWXqi1xnSVSFb_YlbNwvlSp7YraIEpCV4Y9nPbO5mAaY5JlI1Irti1LJgM1-48aF3Wy5BqrRO1A35fW2g0NGvHTBQMC2sghhUwa3zDlRLU_d4a5Q.jpg",
-      "subs": 811,
-      "subs_raw": "811",
+      "subs": 812,
+      "subs_raw": "812",
       "ok": true,
       "last_post_date": "2026-10-04T11:24:28+00:00",
       "last_post": {
         "date": "2026-10-04T11:24:28+00:00",
-        "views": 171,
+        "views": 174,
         "text": "🫣 Figure Me Out — необычный PvP-шутер в Steam\n\nВ игре нужно узнать цифру на голове противника и ввести её, чтобы устранить его. Максимум — 20 игроков в матче.\n\n🗓 Релиз — октябрь 2026 года.\n\n🎮 Наш Telegram-канал",
-        "image": "https://cdn4.telesco.pe/file/oOKKBtaiEDGYsm1Eiu_t-ZprJ4aSB3mQ97bXEEZqtGRxJeHU6NHuaHU-RwlwjL8K0of7-SHNYTKZP65Nnu4GAlv-Z6uWgh96WCs6_QSNlImow_gf5RwX-BErMS5dJg43uaGmYV-5cDJ_rycGJ8H5AD6MmNDBiZLpeZfyxObcQD1nHfyp7_Axk_s6gkTKdAWYd7Termljg9KeWMUdV0Z8NagjQ22qlG-rT5R3FO9t90oXEDb_MIF2ozFZu7iyTkauDNXoSfZINp8Lcu1CU5WYPdAtwsiqE1M5sIon5X_xLkKQSUvl1NVes4m4hSzc8WeYjk1Ic_g6Ulnyp4edGm2S1w",
+        "image": "https://cdn4.telesco.pe/file/UxQ0g3m3eFlKSZNOhtuUfv579Fc2c8y0Ni58KpoXI2l5xNP43n3wUrItU1eR3m9k9LH0-tlGeJMCvgITyrybrk56k4uaey5w0CPTrGvw-AVrVPnB9l4GvEwpGWyMABpCA7by7HjxwYJmzeVtPTAF-kN0kM3QQg279Bdac-QC1VvnyJWmelCpYM8vNqdpXLV8kyxRzSZULtTJVixGjkZcs0C_lAhjsznGjPQ_g0TTdEyb8LbH7kDipdSnYvWxJkDq8DBqMJHOLauK235hEKTcmj_mfP0t7__mc2O157g0-ugfwbtkRWfL9Iy6IZ5QwjobpRSa2YTLXwox_qE1I6K5XA",
         "link": "https://t.me/steam_news_ruhub/67"
       },
       "posts": [
@@ -3599,11 +3599,11 @@
         },
         {
           "t": "2026-09-24T17:08:41+00:00",
-          "v": 72
+          "v": 73
         },
         {
           "t": "2026-09-24T19:53:19+00:00",
-          "v": 111
+          "v": 112
         },
         {
           "t": "2026-09-25T18:04:35+00:00",
@@ -3631,19 +3631,19 @@
         },
         {
           "t": "2026-09-28T20:47:12+00:00",
-          "v": 433
+          "v": 434
         },
         {
           "t": "2026-09-29T14:32:51+00:00",
-          "v": 25100
+          "v": 25200
         },
         {
           "t": "2026-09-29T18:11:27+00:00",
-          "v": 638
+          "v": 639
         },
         {
           "t": "2026-09-29T21:35:13+00:00",
-          "v": 507
+          "v": 508
         },
         {
           "t": "2026-09-29T22:01:17+00:00",
@@ -3651,7 +3651,7 @@
         },
         {
           "t": "2026-09-30T15:18:01+00:00",
-          "v": 660
+          "v": 661
         },
         {
           "t": "2026-09-30T15:25:21+00:00",
@@ -3679,23 +3679,23 @@
         },
         {
           "t": "2026-10-03T20:46:52+00:00",
-          "v": 336
+          "v": 337
         },
         {
           "t": "2026-10-03T21:00:14+00:00",
-          "v": 330
+          "v": 331
         },
         {
           "t": "2026-10-04T10:30:12+00:00",
-          "v": 223
+          "v": 226
         },
         {
           "t": "2026-10-04T10:51:50+00:00",
-          "v": 209
+          "v": 212
         },
         {
           "t": "2026-10-04T11:24:28+00:00",
-          "v": 171
+          "v": 174
         }
       ],
       "post_times": [
@@ -3758,7 +3758,7 @@
       "last_post_date": "2026-09-30T10:15:33+00:00",
       "last_post": {
         "date": "2026-09-30T10:15:33+00:00",
-        "views": 25600,
+        "views": 25800,
         "text": "⚠️ 2-й этап бета-тестирования официально завершён!\n\nВыжившие, спасибо, что исследовали остров, строили базы и делились с нами впечатлениями. Ваши отзывы и предложения очень помогли нам сделать Rust Mobile лучше.\nИгра всё ещё в разработке, и мы знаем, что многое нужно улучшить. Мы искренне благодарны за каждую жалобу, предложение и отзыв, которые вы оставили во время теста. \n\nЕщё раз спасибо, что прошли этот путь вместе с нами. Мы продолжим усердно работать и надеемся встретиться с вами снова в ещё более качественном Rust Mobile. 👍\n\nДо следующего вайпа, выжившие! 🏝\n\n🤖 Сообщить о проблеме\n🎮 VK • MAX • Discord • Чат",
         "image": "https://cdn4.telesco.pe/file/JKKRytyOOfHaOaCsCXP0egcpIzz-BLS3_7tLrynCD05zhIL9MyeWWZbQNMAD4_iO4UkkSNTybwYjTPZbpDgVVFH65RI3k3L8jvr9q28q1mawaGD6hXWTT3Lbg7Y_Rwjy8ALGjNFzT5QmGHjG6dYUsa_rr818JLkggrpJNOheg8VInzWithP12oe5aE1V1G3_waRyuCDdGBwpOuQ50VBain0T7d4UktzSbpUeOmik1A3EvJ67HSDXiQXqLuISiyxGbMTUSfv9nUzhzlDBOLZYBQgvLdbkLPEKn7ae2m3nCvq3tBK5jPw004mcAspC6_dLkIqU_WQ0XYxzWOkh0VEw2A.jpg",
         "link": "https://t.me/play_rustmobile/565"
@@ -3910,7 +3910,7 @@
         },
         {
           "t": "2026-09-25T14:03:24+00:00",
-          "v": 15700
+          "v": 15800
         },
         {
           "t": "2026-09-27T14:02:28+00:00",
@@ -3922,11 +3922,11 @@
         },
         {
           "t": "2026-09-29T16:04:20+00:00",
-          "v": 11100
+          "v": 11200
         },
         {
           "t": "2026-09-30T10:15:33+00:00",
-          "v": 25600
+          "v": 25800
         }
       ],
       "post_times": [
